@@ -69,6 +69,7 @@ exports.signIn = async (req, res) => {
       result: "Successful Login",
       token: token,
       username: account[0].username,
+      namaLengkap: account[0].nama_lengkap,
       role: role[0].role,
     })
 
