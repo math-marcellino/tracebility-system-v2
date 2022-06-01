@@ -205,4 +205,4 @@ export const jsonABI = [
 	}
 ]
 
-export const contractAddress = "0x63E0258DC4fD3c14588B991aab597A9152856161"
+export const contractAddress = "0x21d7A106711476c1a3C907Cb30dc0b473c3240EE"
