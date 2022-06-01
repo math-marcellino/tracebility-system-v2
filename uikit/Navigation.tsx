@@ -8,7 +8,7 @@ import { Menu } from '@headlessui/react';
 type NavigationProps = {};
 
 const Navigation: FunctionComponent<NavigationProps> = ({}) => {
-    const { username, role } = useUserContext();
+    const { namaLengkap, role } = useUserContext();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [, deleteToken] = useLocalStorage('token', '');
     const jwt = useReadLocalStorage('token');
@@ -38,7 +38,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                 <Menu>
                     <div className="flex justify-end">
                         <Menu.Button className="flex items-center gap-2">
-                            Welcome {username}! | {role}
+                            Welcome {namaLengkap}! | {role}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"

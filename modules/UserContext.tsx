@@ -38,12 +38,13 @@ export const UserContextWrapper: FunctionComponent<UserContextWrapperType> = ({
                 username: string;
                 role: string;
                 noSertifHalal: string;
+                namaLengkap: string;
             } = decodeToken(jwtToken.toString())!;
             const data: UserContextType = {
                 username: decodedToken.username,
                 role: decodedToken.role,
                 noSertifHalal: decodedToken.noSertifHalal,
-                namaLengkap: undefined,
+                namaLengkap: decodedToken.namaLengkap,
             };
             setUserData(data);
         }

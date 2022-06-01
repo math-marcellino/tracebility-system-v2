@@ -59,6 +59,7 @@ exports.signIn = async (req, res) => {
 
     const token = jwt.sign({
       username: username,
+      namaLengkap: account[0].nama_lengkap,
       role: role[0].role,
       noSertifHalal: account[0].no_sertifHalal
     }, process.env.JWT_KEY, {
