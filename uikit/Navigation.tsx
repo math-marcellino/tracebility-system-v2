@@ -1,11 +1,18 @@
 import type { FunctionComponent } from 'react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Menu } from '@headlessui/react';
 
-type NavigationProps = {
-    isLoggedIn: boolean;
-};
+type NavigationProps = {};
 
-const Navigation: FunctionComponent<NavigationProps> = ({ isLoggedIn }) => {
+const Navigation: FunctionComponent<NavigationProps> = ({}) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        if (localStorage.getItem('token') != null) {
+            setIsLoggedIn(true);
+        }
+    }, [isLoggedIn]);
+
     return (
         <div className="flex flex-row items-center py-6 px-16 justify-between">
             <div className="flex flex-row items-center gap-8">
@@ -22,7 +29,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({ isLoggedIn }) => {
 
             {isLoggedIn ? (
                 <Menu>
-                    <div className='flex justify-end'>
+                    <div className="flex justify-end">
                         <Menu.Button className="flex items-center gap-2">
                             Welcome Matthew! | RPH
                             <svg
@@ -43,7 +50,13 @@ const Navigation: FunctionComponent<NavigationProps> = ({ isLoggedIn }) => {
                                 <a href="/">Account</a>
                             </Menu.Item>
                             <Menu.Item>
-                                <a href="/" className="flex gap-2">
+                                <button
+                                    onClick={() => {
+                                        localStorage.removeItem('token');
+                                        setIsLoggedIn(false);
+                                    }}
+                                    className="flex gap-2"
+                                >
                                     Logout
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -59,15 +72,15 @@ const Navigation: FunctionComponent<NavigationProps> = ({ isLoggedIn }) => {
                                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                                         />
                                     </svg>
-                                </a>
+                                </button>
                             </Menu.Item>
                         </Menu.Items>
                     </div>
                 </Menu>
             ) : (
-                <button className="bg-gray-700 px-4 py-2 rounded-md">
-                    Login
-                </button>
+                <Link href="/login">
+                    <a className="bg-gray-700 px-4 py-2 rounded-md">Login</a>
+                </Link>
             )}
         </div>
     );
