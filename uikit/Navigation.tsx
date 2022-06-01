@@ -1,17 +1,24 @@
 import type { FunctionComponent } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useUserContext } from '../modules/UserContext';
+import { useReadLocalStorage, useLocalStorage } from 'usehooks-ts';
+import { useState, useEffect } from 'react';
 import { Menu } from '@headlessui/react';
 
 type NavigationProps = {};
 
 const Navigation: FunctionComponent<NavigationProps> = ({}) => {
+    const { username, role } = useUserContext();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [, deleteToken] = useLocalStorage('token', '');
+    const jwt = useReadLocalStorage('token');
     useEffect(() => {
-        if (localStorage.getItem('token') != null) {
+        if (jwt) {
             setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
         }
-    }, [isLoggedIn]);
+    }, [jwt]);
 
     return (
         <div className="flex flex-row items-center py-6 px-16 justify-between">
@@ -31,7 +38,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                 <Menu>
                     <div className="flex justify-end">
                         <Menu.Button className="flex items-center gap-2">
-                            Welcome Matthew! | RPH
+                            Welcome {username}! | {role}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -52,8 +59,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                             <Menu.Item>
                                 <button
                                     onClick={() => {
-                                        localStorage.removeItem('token');
-                                        setIsLoggedIn(false);
+                                        deleteToken('');
                                     }}
                                     className="flex gap-2"
                                 >

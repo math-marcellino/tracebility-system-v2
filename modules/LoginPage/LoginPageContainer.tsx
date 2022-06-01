@@ -1,6 +1,8 @@
 import type { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { useUserContext } from '../UserContext';
 import axios from 'axios';
 
 type LoginPageContainerProps = {};
@@ -9,9 +11,11 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
     const router = useRouter();
     const [userInfo, setUserInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const [, setLocalStorage] = useLocalStorage('token', '');
+    const jwt = useReadLocalStorage('token')
 
     useEffect(() => {
-        if (localStorage.getItem('token') != null) {
+        if (jwt) {
             router.push('/');
         }
     }, []);
@@ -23,7 +27,7 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
                 'http://localhost:8080/api/user/acc/signIn',
                 userInfo
             );
-            localStorage.setItem('token', result.data.token);
+            setLocalStorage(result.data.token);
             setTimeout(() => {
                 setIsLoading(false);
                 router.push('/');
