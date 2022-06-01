@@ -4,7 +4,7 @@ import Navigation from '../uikit/Navigation';
 const Home: NextPage = () => {
     return (
         <div>
-            <Navigation isLoggedIn={true}/>
+            <Navigation isLoggedIn={false}/>
         </div>
     );
 };
