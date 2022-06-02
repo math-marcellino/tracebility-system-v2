@@ -1,17 +1,51 @@
 import type { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import { useProvider } from 'wagmi'
+import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI'
+import { ethers } from 'ethers';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 type HotelPageContainerProps = {};
 
 const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
-    const [distributorInfo, setDistributorInfo] = useState({})
+    const [hotelInfo, setHotelInfo] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    
+    const provider = useProvider()
+    const walletSigner = new ethers.Wallet(privateKey, provider)
+    const useContract = new ethers.Contract(contractAddress, jsonABI, walletSigner)
+
     const handleInput = async () => {
+        setIsLoading(true)
         try {
-            console.log(distributorInfo)
+            const {
+                durasiPenyimpanan,
+                caraPenyimpanan,
+                statusPenyimpanan,
+                tanggalPengolahan,
+                caraPengolahan,
+                sertifHalal
+            }: any = hotelInfo
+            const tx = await useContract.step3(
+                1,
+                durasiPenyimpanan,
+                caraPenyimpanan,
+                statusPenyimpanan,
+                tanggalPengolahan,
+                caraPengolahan,
+                sertifHalal,
+                "William Chandra"
+            )
+            console.log(tx)
+            await tx.wait()
+            setIsLoading(false)
+            toast.success(`Transaction is sucessfully submitted!`)
         } catch(err) {
+            setIsLoading(false)
             console.log(err);
+            toast.error(`${err}`)
         }
     };
     return( 
@@ -27,8 +61,8 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         name="durasiPenyimpanan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
-                            setDistributorInfo({
-                                ...distributorInfo,
+                            setHotelInfo({
+                                ...hotelInfo,
                                 [e.target.name]: e.target.value,
                             })
                         }
@@ -41,8 +75,8 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         name="caraPenyimpanan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
-                            setDistributorInfo({
-                                ...distributorInfo,
+                            setHotelInfo({
+                                ...hotelInfo,
                                 [e.target.name]: e.target.value,
                             })
                         }
@@ -55,8 +89,8 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         name="statusPenyimpanan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
-                            setDistributorInfo({
-                                ...distributorInfo,
+                            setHotelInfo({
+                                ...hotelInfo,
                                 [e.target.name]: e.target.value,
                             })
                         }
@@ -69,8 +103,8 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         name="tanggalPengolahan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
-                            setDistributorInfo({
-                                ...distributorInfo,
+                            setHotelInfo({
+                                ...hotelInfo,
                                 [e.target.name]: e.target.value,
                             })
                         }
@@ -83,8 +117,8 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         name="caraPengolahan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
-                            setDistributorInfo({
-                                ...distributorInfo,
+                            setHotelInfo({
+                                ...hotelInfo,
                                 [e.target.name]: e.target.value,
                             })
                         }
@@ -97,8 +131,8 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         name="sertifHalal"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
-                            setDistributorInfo({
-                                ...distributorInfo,
+                            setHotelInfo({
+                                ...hotelInfo,
                                 [e.target.name]: e.target.value,
                             })
                         }
@@ -106,10 +140,49 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                 </div>
                 <button 
                     onClick={handleInput}
-                    className="bg-gray-900 hover:bg-gray-800 active:scale-90 transition ease-in-out w-full p-2.5 rounded-xl">
-                    <p>Submit</p>
+                    className="bg-gray-900 hover:bg-gray-800 active:scale-90 transition ease-in-out w-full p-2.5 rounded-xl"
+                >
+                    {isLoading ? (
+                        <p className="flex items-center justify-center">
+                            <svg
+                                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
+                            Processing...
+                        </p>
+                    ) : (
+                        <p>Submit</p>
+                    )}
                 </button>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                style={{width: "350px"}}
+            />
         </div>
   )
 };
