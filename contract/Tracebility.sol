@@ -2,11 +2,16 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
-
-contract TraceabilityV2 is AccessControl{
+contract TraceabilityV2{
+  address owner;
+  
   constructor() {
-    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    owner = msg.sender;
+  }
+
+  modifier onlyOwner() {
+    require(msg.sender == owner, "You are not the owner!");
+    _;
   }
   
   // Phases    
@@ -89,7 +94,7 @@ contract TraceabilityV2 is AccessControl{
     string memory statusPemotongan,
     string memory sertifHalal,
     string memory verifier
-  ) public onlyRole(DEFAULT_ADMIN_ROLE) {
+  ) public onlyOwner {
       index++;
       RPHBatch[index].itemID = index;
       RPHBatch[index].step = SupplyChainSteps.Step1;
@@ -117,7 +122,7 @@ contract TraceabilityV2 is AccessControl{
     string memory statusPengiriman,
     string memory sertifHalal,
     string memory verifier
-  ) public onlyRole(DEFAULT_ADMIN_ROLE) {
+  ) public onlyOwner {
       require(RPHBatch[itemID].itemID > 0, "Bahan belum memenuhi syarat");
       require(DistributorBatch[itemID].itemID <= 0, "Tidak dapat mengubah data");
       DistributorBatch[itemID].itemID = itemID;
@@ -147,7 +152,7 @@ contract TraceabilityV2 is AccessControl{
     string memory caraPengolahan,
     string memory sertifHalal,
     string memory verifier
-  ) public onlyRole(DEFAULT_ADMIN_ROLE) {
+  ) public onlyOwner {
     require(DistributorBatch[itemID].itemID > 0, "Bahan belum memenuhi syarat");
     require(HotelBatch[itemID].itemID <= 0, "Tidak dapat mengubah data");
     uint256 item = itemID;
