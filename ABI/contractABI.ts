@@ -1,5 +1,38 @@
 export const jsonABI = [
 	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "jenisKelamin",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggalPemotongan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "statusPemotongan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sertifHalal",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "verifier",
+				"type": "string"
+			}
+		],
+		"name": "createItem",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -52,6 +85,24 @@ export const jsonABI = [
 		],
 		"name": "DistributorTrace",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "grantRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -119,6 +170,42 @@ export const jsonABI = [
 		],
 		"name": "HotelTrace",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "renounceRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "revokeRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -251,6 +338,144 @@ export const jsonABI = [
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "itemID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggalPengiriman",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "statusPengiriman",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sertifHalal",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "verifier",
+				"type": "string"
+			}
+		],
+		"name": "step2",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "itemID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "durasiPenyimpanan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "caraPenyimpanan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "statusPenyimpanan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggalPengolahan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "caraPengolahan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sertifHalal",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "verifier",
+				"type": "string"
+			}
+		],
+		"name": "step3",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "item",
+				"type": "uint256"
+			}
+		],
+		"name": "checkDistributor",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "item",
+				"type": "uint256"
+			}
+		],
+		"name": "checkHotel",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "item",
+				"type": "uint256"
+			}
+		],
+		"name": "checkRPH",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "DEFAULT_ADMIN_ROLE",
 		"outputs": [
@@ -302,6 +527,49 @@ export const jsonABI = [
 				"internalType": "string",
 				"name": "sertifHalal",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			}
+		],
+		"name": "getRoleAdmin",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "hasRole",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -418,217 +686,6 @@ export const jsonABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "jenisKelamin",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "tanggalPemotongan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "statusPemotongan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			}
-		],
-		"name": "createItem",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
-			}
-		],
-		"name": "getRoleAdmin",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "grantRole",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "hasRole",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "renounceRole",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "role",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "revokeRole",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "itemID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "tanggalPengiriman",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "statusPengiriman",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			}
-		],
-		"name": "step2",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "itemID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "durasiPenyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "caraPenyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "statusPenyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "tanggalPengolahan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "caraPengolahan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			}
-		],
-		"name": "step3",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "bytes4",
 				"name": "interfaceId",
 				"type": "bytes4"
@@ -646,6 +703,5 @@ export const jsonABI = [
 		"type": "function"
 	}
 ]
-
-export const contractAddress = "0x73422fB9B15f1A8CeF249f6ab3750a473F53e176"
+export const contractAddress = "0xBa1b56f97dA8C44907e15F232c501cC24a7a4FAd"
 export const privateKey = "a61642fd40b7b9450ca16ca141a3dfc695fcaa3e32550297addb5e1741f7f08a"
