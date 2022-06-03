@@ -14,26 +14,25 @@ contract TraceabilityV2{
     _;
   }
   
-  // Phases    
-  enum SupplyChainSteps{Step1, Step2, Step3}
-
+  // Phases      
   mapping(uint => RPH) public RPHBatch;
   mapping(uint => Distributor) public DistributorBatch;
   mapping(uint => Hotel) public HotelBatch;
+  mapping(string => Pengiriman[]) public PengirimanBatch;
+
+  enum StatusPengiriman {OTW, SAMPAI}
 
   struct RPH{
-    uint256 itemID;
-    TraceabilityV2.SupplyChainSteps step;
+    string Code;
     string jenis_kelamin;
-    string tanggal_pemotongan;
+    string tanggal_pemotongan; 
     string status_pemotongan;
     string verifier;
     string sertifHalal;
   }
 
   event RPHTrace(
-    uint256 itemID,
-    TraceabilityV2.SupplyChainSteps step,
+    uint256 batchID,
     string jenis_kelamin,
     string tanggal_pemotongan,
     string status_pemotongan,
@@ -43,50 +42,53 @@ contract TraceabilityV2{
   );
 
   struct Distributor{
-    uint256 itemID;
-    TraceabilityV2.SupplyChainSteps step;
-    string tanggal_pengiriman;
-    string status_pengiriman;
+    string Code;
+    uint256 durasi_penyimpanan;
+    string cara_penyimpanan;
+    string status_penyimpanan;
     string verifier;
     string sertifHalal;
   }
 
   event DistributorTrace(
-    uint256 itemID,
-    TraceabilityV2.SupplyChainSteps step,
-    string tanggal_pengiriman,
-    string status_pengiriman,
+    uint256 batchID,
+    uint256 durasi_penyimpanan,
+    string cara_penyimpanan,
+    string status_penyimpanan,
     string verifier,
     string sertifHalal,
     uint256 time
   );
 
-  event HotelTrace(
-    uint itemID,
-    TraceabilityV2.SupplyChainSteps step,
-    string durasi_penyimpanan,
-    string cara_penyimpanan,
-    string status_penyimpanan,
-    string tanggal_pengolahan,
-    string cara_pengolahan,
-    string sertifHalal,
-    string verifier,    
-    uint _time
-  );
-  
   struct Hotel{
-    uint256 itemID;
-    TraceabilityV2.SupplyChainSteps step;
-    string durasi_penyimpanan;
-    string cara_penyimpanan;
-    string status_penyimpanan;
+    string Code;
     string tanggal_pengolahan;
     string cara_pengolahan;
     string verifier;
     string sertifHalal;
   }
 
-  uint index;
+  event HotelTrace(
+    uint256 batchID,
+    string tanggal_pengolahan,
+    string cara_pengolahan,
+    string verifier,
+    string sertifHalal,
+    uint256 time
+  );
+
+  struct Pengiriman{
+    uint256 batchID;
+    string tanggal_pengiriman;
+    string tanggal_penerimaan;
+    string tujuan;
+    StatusPengiriman status;
+  }
+  
+  uint indexRPH;
+  uint indexDistributor;
+  uint indexHotel;
+  uint indexPengiriman;
 
   function createItem(
     string memory jenisKelamin,
@@ -95,101 +97,96 @@ contract TraceabilityV2{
     string memory sertifHalal,
     string memory verifier
   ) public onlyOwner {
-      index++;
-      RPHBatch[index].itemID = index;
-      RPHBatch[index].step = SupplyChainSteps.Step1;
-      RPHBatch[index].jenis_kelamin = jenisKelamin;
-      RPHBatch[index].tanggal_pemotongan = tanggalPemotongan;
-      RPHBatch[index].status_pemotongan = statusPemotongan;
-      RPHBatch[index].sertifHalal = sertifHalal;
-      RPHBatch[index].verifier = verifier;
+      indexRPH++;
+      RPHBatch[indexRPH].Code = "RPH";
+      RPHBatch[indexRPH].jenis_kelamin = jenisKelamin;
+      RPHBatch[indexRPH].tanggal_pemotongan = tanggalPemotongan;
+      RPHBatch[indexRPH].status_pemotongan = statusPemotongan;
+      RPHBatch[indexRPH].sertifHalal = sertifHalal;
+      RPHBatch[indexRPH].verifier = verifier;
 
       emit RPHTrace(
-        RPHBatch[index].itemID,
-        RPHBatch[index].step,
-        RPHBatch[index].jenis_kelamin,
-        RPHBatch[index].tanggal_pemotongan,
-        RPHBatch[index].status_pemotongan,
-        RPHBatch[index].sertifHalal,
-        RPHBatch[index].verifier,
+        indexRPH,
+        RPHBatch[indexRPH].jenis_kelamin,
+        RPHBatch[indexRPH].tanggal_pemotongan,
+        RPHBatch[indexRPH].status_pemotongan,
+        RPHBatch[indexRPH].sertifHalal,
+        RPHBatch[indexRPH].verifier,
         block.timestamp
       );
   }
 
   function step2(
-    uint256 itemID,
-    string memory tanggalPengiriman,
-    string memory statusPengiriman,
+    uint256 durasiPenyimpanan,
+    string memory caraPenyimpanan,
+    string memory statusPenyimpanan,
     string memory sertifHalal,
     string memory verifier
   ) public onlyOwner {
-      require(RPHBatch[itemID].itemID > 0, "Bahan belum memenuhi syarat");
-      require(DistributorBatch[itemID].itemID <= 0, "Tidak dapat mengubah data");
-      DistributorBatch[itemID].itemID = itemID;
-      DistributorBatch[itemID].step = SupplyChainSteps.Step2;
-      DistributorBatch[itemID].tanggal_pengiriman = tanggalPengiriman;
-      DistributorBatch[itemID].status_pengiriman = statusPengiriman;
-      DistributorBatch[itemID].sertifHalal = sertifHalal;
-      DistributorBatch[itemID].verifier = verifier;
+      indexDistributor++;
+      DistributorBatch[indexDistributor].Code = "Distributor";
+      DistributorBatch[indexDistributor].durasi_penyimpanan = durasiPenyimpanan;
+      DistributorBatch[indexDistributor].cara_penyimpanan = caraPenyimpanan;
+      DistributorBatch[indexDistributor].status_penyimpanan = statusPenyimpanan;
+      DistributorBatch[indexDistributor].sertifHalal = sertifHalal;
+      DistributorBatch[indexDistributor].verifier = verifier;
 
       emit DistributorTrace(
-        DistributorBatch[itemID].itemID,
-        DistributorBatch[itemID].step,
-        DistributorBatch[itemID].tanggal_pengiriman,
-        DistributorBatch[itemID].status_pengiriman,
-        DistributorBatch[itemID].sertifHalal,
-        DistributorBatch[itemID].verifier,
+        indexDistributor++,
+        DistributorBatch[indexDistributor].durasi_penyimpanan,
+        DistributorBatch[indexDistributor].cara_penyimpanan,
+        DistributorBatch[indexDistributor].status_penyimpanan,
+        DistributorBatch[indexDistributor].sertifHalal,
+        DistributorBatch[indexDistributor].verifier,
         block.timestamp
       );
   }
-  
+
   function step3(
-    uint256 itemID,
-    string memory durasiPenyimpanan,
-    string memory caraPenyimpanan,
-    string memory statusPenyimpanan,
     string memory tanggalPengolahan,
     string memory caraPengolahan,
     string memory sertifHalal,
     string memory verifier
   ) public onlyOwner {
-    require(DistributorBatch[itemID].itemID > 0, "Bahan belum memenuhi syarat");
-    require(HotelBatch[itemID].itemID <= 0, "Tidak dapat mengubah data");
-    uint256 item = itemID;
-    HotelBatch[item].itemID = itemID;
-    HotelBatch[item].step = SupplyChainSteps.Step3;   
-    HotelBatch[item].durasi_penyimpanan = durasiPenyimpanan;
-    HotelBatch[item].cara_penyimpanan = caraPenyimpanan;
-    HotelBatch[item].status_penyimpanan = statusPenyimpanan;
-    HotelBatch[item].tanggal_pengolahan = tanggalPengolahan;
-    HotelBatch[item].cara_pengolahan = caraPengolahan;
-    HotelBatch[item].sertifHalal = sertifHalal;
-    HotelBatch[item].verifier = verifier;
+    indexHotel++;
+    HotelBatch[indexHotel].Code = "Hotel";
+    HotelBatch[indexHotel].tanggal_pengolahan = tanggalPengolahan;
+    HotelBatch[indexHotel].cara_pengolahan = caraPengolahan;
+    HotelBatch[indexHotel].sertifHalal = sertifHalal;
+    HotelBatch[indexHotel].verifier = verifier;
 
     emit HotelTrace(
-      HotelBatch[item].itemID,
-      HotelBatch[item].step,
-      HotelBatch[item].durasi_penyimpanan,
-      HotelBatch[item].cara_penyimpanan,
-      HotelBatch[item].status_penyimpanan,
-      HotelBatch[item].tanggal_pengolahan,
-      HotelBatch[item].cara_pengolahan,
-      HotelBatch[item].sertifHalal,
-      HotelBatch[item].verifier,
+      indexHotel,
+      HotelBatch[indexHotel].tanggal_pengolahan,
+      HotelBatch[indexHotel].cara_pengolahan,
+      HotelBatch[indexHotel].sertifHalal,
+      HotelBatch[indexHotel].verifier,
       block.timestamp
     );
   }
 
-  function checkRPH(uint256 item) public view returns(uint256){
-    return RPHBatch[item].itemID;
-  }
+  function pengiriman(
+    uint256 batchID,
+    string memory Code,
+    string memory tanggalPengiriman,
+    string memory tujuan
+  ) public onlyOwner {
+    indexPengiriman++;
+    
+    Pengiriman memory temp;
+    temp.batchID = batchID;
+    temp.tanggal_pengiriman = tanggalPengiriman;
+    temp.tujuan = tujuan;
 
-  function checkDistributor(uint256 item) public view returns(uint256){
-    return HotelBatch[item].itemID;
-  }
+    PengirimanBatch[Code].push(temp);
+  }  
 
-  function checkHotel(uint256 item) public view returns(uint256){
-    return DistributorBatch[item].itemID;
+  function penerimaan(
+    uint256 index,
+    string memory Code,
+    string memory tanggalPenerimaan
+  ) public onlyOwner {
+    PengirimanBatch[Code][index].tanggal_penerimaan = tanggalPenerimaan;
   }
 }
 
