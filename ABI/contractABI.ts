@@ -43,25 +43,25 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "itemID",
+				"name": "batchID",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"internalType": "enum TraceabilityV2.SupplyChainSteps",
-				"name": "step",
-				"type": "uint8"
+				"internalType": "uint256",
+				"name": "durasi_penyimpanan",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "tanggal_pengiriman",
+				"name": "cara_penyimpanan",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "status_pengiriman",
+				"name": "status_penyimpanan",
 				"type": "string"
 			},
 			{
@@ -92,32 +92,8 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "itemID",
+				"name": "batchID",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum TraceabilityV2.SupplyChainSteps",
-				"name": "step",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "durasi_penyimpanan",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "cara_penyimpanan",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "status_penyimpanan",
-				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -134,19 +110,19 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
 				"name": "verifier",
 				"type": "string"
 			},
 			{
 				"indexed": false,
+				"internalType": "string",
+				"name": "sertifHalal",
+				"type": "string"
+			},
+			{
+				"indexed": false,
 				"internalType": "uint256",
-				"name": "_time",
+				"name": "time",
 				"type": "uint256"
 			}
 		],
@@ -154,19 +130,64 @@ export const jsonABI = [
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "Code",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggalPenerimaan",
+				"type": "string"
+			}
+		],
+		"name": "penerimaan",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "batchID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "Code",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggalPengiriman",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tujuan",
+				"type": "string"
+			}
+		],
+		"name": "pengiriman",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "itemID",
+				"name": "batchID",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum TraceabilityV2.SupplyChainSteps",
-				"name": "step",
-				"type": "uint8"
 			},
 			{
 				"indexed": false,
@@ -212,17 +233,17 @@ export const jsonABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "itemID",
+				"name": "durasiPenyimpanan",
 				"type": "uint256"
 			},
 			{
 				"internalType": "string",
-				"name": "tanggalPengiriman",
+				"name": "caraPenyimpanan",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "statusPengiriman",
+				"name": "statusPenyimpanan",
 				"type": "string"
 			},
 			{
@@ -243,26 +264,6 @@ export const jsonABI = [
 	},
 	{
 		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "itemID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "durasiPenyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "caraPenyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "statusPenyimpanan",
-				"type": "string"
-			},
 			{
 				"internalType": "string",
 				"name": "tanggalPengolahan",
@@ -293,63 +294,6 @@ export const jsonABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "item",
-				"type": "uint256"
-			}
-		],
-		"name": "checkDistributor",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "item",
-				"type": "uint256"
-			}
-		],
-		"name": "checkHotel",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "item",
-				"type": "uint256"
-			}
-		],
-		"name": "checkRPH",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
@@ -357,23 +301,23 @@ export const jsonABI = [
 		"name": "DistributorBatch",
 		"outputs": [
 			{
+				"internalType": "string",
+				"name": "Code",
+				"type": "string"
+			},
+			{
 				"internalType": "uint256",
-				"name": "itemID",
+				"name": "durasi_penyimpanan",
 				"type": "uint256"
 			},
 			{
-				"internalType": "enum TraceabilityV2.SupplyChainSteps",
-				"name": "step",
-				"type": "uint8"
-			},
-			{
 				"internalType": "string",
-				"name": "tanggal_pengiriman",
+				"name": "cara_penyimpanan",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "status_pengiriman",
+				"name": "status_penyimpanan",
 				"type": "string"
 			},
 			{
@@ -401,28 +345,8 @@ export const jsonABI = [
 		"name": "HotelBatch",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "itemID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum TraceabilityV2.SupplyChainSteps",
-				"name": "step",
-				"type": "uint8"
-			},
-			{
 				"internalType": "string",
-				"name": "durasi_penyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "cara_penyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "status_penyimpanan",
+				"name": "Code",
 				"type": "string"
 			},
 			{
@@ -452,6 +376,50 @@ export const jsonABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "PengirimanBatch",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "batchID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggal_pengiriman",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggal_penerimaan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tujuan",
+				"type": "string"
+			},
+			{
+				"internalType": "enum TraceabilityV2.StatusPengiriman",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
@@ -460,14 +428,9 @@ export const jsonABI = [
 		"name": "RPHBatch",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "itemID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum TraceabilityV2.SupplyChainSteps",
-				"name": "step",
-				"type": "uint8"
+				"internalType": "string",
+				"name": "Code",
+				"type": "string"
 			},
 			{
 				"internalType": "string",
@@ -499,5 +462,5 @@ export const jsonABI = [
 		"type": "function"
 	}
 ]
-export const contractAddress = "0xaBecF13a1B70E94429022B90e1C3Ceab4594b83D"
+export const contractAddress = "0x5773C4909aB403451d3F6BDdd889d2e0e50FCE39"
 export const privateKey = "a61642fd40b7b9450ca16ca141a3dfc695fcaa3e32550297addb5e1741f7f08a"
