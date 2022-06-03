@@ -4,11 +4,11 @@ import RPHTable from './components/RPHTable';
 type HomePageContainerProps = {};
 
 const HomePageContainer: FunctionComponent<HomePageContainerProps> = ({}) => {
-    return(
+    return (
         <div>
             <RPHTable />
         </div>
-    )
+    );
 };
 
 export default HomePageContainer;
