@@ -21,14 +21,15 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
         setIsLoading(true)
         try {
             const {
-                tanggalPengiriman,
-                statusPengiriman,
+                durasiPenyimpanan,
+                caraPenyimpanan,
+                statusPenyimpanan,
                 sertifHalal,
             }: any = distributorInfo
             const tx = await useContract.step2(
-                1, 
-                tanggalPengiriman, 
-                statusPengiriman, 
+                durasiPenyimpanan,
+                caraPenyimpanan,
+                statusPenyimpanan,
                 sertifHalal,
                 "William Chandra"
             )
@@ -49,10 +50,10 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                     Input Data Distributor
                 </p>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="tanggalPengiriman">Tanggal Pengiriman</label>
+                    <label htmlFor="durasiPenyimpanan">Durasi Penyimpanan ( Hari )</label>
                     <input
-                        type="date"
-                        name="tanggalPengiriman"
+                        type="number"
+                        name="durasiPenyimpanan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
                             setDistributorInfo({
@@ -63,10 +64,24 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="statusPengiriman">Status Pengiriman</label>
+                    <label htmlFor="caraPenyimpanan">Cara Penyimpanan</label>
                     <input
                         type="text"
-                        name="statusPengiriman"
+                        name="caraPenyimpanan"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        onChange={(e) =>
+                            setDistributorInfo({
+                                ...distributorInfo,
+                                [e.target.name]: e.target.value,
+                            })
+                        }
+                    />
+                </div>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label htmlFor="statusPenyimpanan">Status Penyimpanan</label>
+                    <input
+                        type="text"
+                        name="statusPenyimpanan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
                         onChange={(e) =>
                             setDistributorInfo({
