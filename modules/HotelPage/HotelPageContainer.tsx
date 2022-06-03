@@ -21,18 +21,11 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
         setIsLoading(true)
         try {
             const {
-                durasiPenyimpanan,
-                caraPenyimpanan,
-                statusPenyimpanan,
                 tanggalPengolahan,
                 caraPengolahan,
                 sertifHalal
             }: any = hotelInfo
             const tx = await useContract.step3(
-                1,
-                durasiPenyimpanan,
-                caraPenyimpanan,
-                statusPenyimpanan,
                 tanggalPengolahan,
                 caraPengolahan,
                 sertifHalal,
@@ -54,48 +47,6 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                 <p className="text-3xl font-bold">
                     Input Data Hotel
                 </p>
-                <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="durasiPenyimpanan">Durasi Penyimpanan</label>
-                    <input
-                        type="text"
-                        name="durasiPenyimpanan"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="caraPenyimpanan">Cara Penyimpanan</label>
-                    <input
-                        type="text"
-                        name="caraPenyimpanan"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="statusPenyimpanan">Status Penyimpanan</label>
-                    <input
-                        type="text"
-                        name="statusPenyimpanan"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
-                </div>
                 <div className="flex flex-col space-y-1 w-full">
                     <label htmlFor="tanggalPengolahan">Tanggal Pengolahan</label>
                     <input
