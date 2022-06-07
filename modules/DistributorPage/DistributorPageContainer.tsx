@@ -1,25 +1,31 @@
 import type { FunctionComponent } from 'react';
 import { useState } from 'react';
 import { useUserContext } from '../UserContext';
-import { useProvider } from 'wagmi'
-import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI'
+import { useProvider } from 'wagmi';
+import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-type DistributorPageContainerProps = {}
+type DistributorPageContainerProps = {};
 
-const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps> = ({}) => {
-    const [distributorInfo, setDistributorInfo] = useState({})
+const DistributorPageContainer: FunctionComponent<
+    DistributorPageContainerProps
+> = ({}) => {
+    const [distributorInfo, setDistributorInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const { namaLengkap } = useUserContext();
-    
-    const provider = useProvider()
-    const walletSigner = new ethers.Wallet(privateKey, provider)
-    const useContract = new ethers.Contract(contractAddress, jsonABI, walletSigner)
-    
+
+    const provider = useProvider();
+    const walletSigner = new ethers.Wallet(privateKey, provider);
+    const useContract = new ethers.Contract(
+        contractAddress,
+        jsonABI,
+        walletSigner
+    );
+
     const handleInput = async () => {
-        setIsLoading(true)
+        setIsLoading(true);
         try {
             const {
                 RPHBatchID,
@@ -27,7 +33,7 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                 caraPenyimpanan,
                 statusPenyimpanan,
                 sertifHalal,
-            }: any = distributorInfo
+            }: any = distributorInfo;
             const tx = await useContract.setDataPenyimpanan(
                 RPHBatchID,
                 durasiPenyimpanan,
@@ -35,23 +41,21 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                 statusPenyimpanan,
                 sertifHalal,
                 namaLengkap
-            )
-            console.log(tx)
-            await tx.wait()
-            setIsLoading(false)
-            toast.success(`Transaction is sucessfully submitted!`)
-        } catch(err) {
-            setIsLoading(false)
+            );
+            console.log(tx);
+            await tx.wait();
+            setIsLoading(false);
+            toast.success(`Transaction is sucessfully submitted!`);
+        } catch (err) {
+            setIsLoading(false);
             console.log(err);
-            toast.error(`${err}`)
+            toast.error(`${err}`);
         }
     };
-    return( 
-        <div className="flex h-screen w-screen items-center justify-center">
+    return (
+        <div className="flex h-screen items-center justify-center">
             <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
-                <p className="text-3xl font-bold">
-                    Input Data Penyimpanan
-                </p>
+                <p className="text-3xl font-bold">Input Data Penyimpanan</p>
                 <div className="flex flex-col space-y-1 w-full">
                     <label htmlFor="RPHBatchID">RPH Batch ID</label>
                     <input
@@ -68,7 +72,9 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="durasiPenyimpanan">Durasi Penyimpanan ( Hari )</label>
+                    <label htmlFor="durasiPenyimpanan">
+                        Durasi Penyimpanan ( Hari )
+                    </label>
                     <input
                         type="number"
                         name="durasiPenyimpanan"
@@ -96,7 +102,9 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="statusPenyimpanan">Status Penyimpanan</label>
+                    <label htmlFor="statusPenyimpanan">
+                        Status Penyimpanan
+                    </label>
                     <input
                         type="text"
                         name="statusPenyimpanan"
@@ -123,7 +131,7 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                         }
                     />
                 </div>
-                <button 
+                <button
                     onClick={handleInput}
                     className="bg-gray-900 hover:bg-gray-800 active:scale-90 transition ease-in-out w-full p-2.5 rounded-xl"
                 >
@@ -166,10 +174,10 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                style={{width: "350px"}}
+                style={{ width: '350px' }}
             />
         </div>
-  )
+    );
 };
 
 export default DistributorPageContainer;

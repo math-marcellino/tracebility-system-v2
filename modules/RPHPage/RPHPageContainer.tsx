@@ -49,9 +49,9 @@ const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
         }
     };
     return (
-        <div className="flex h-screen w-screen items-center justify-center">
+        <div className="flex h-screen items-center justify-center">
             <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
-                <p className="text-3xl font-bold">Input Data RPH</p>
+                <p className="text-3xl font-bold">Input Data Pemotongan</p>
                 <div className="flex flex-col space-y-1 w-full">
                     <label htmlFor="a">Jenis Kelamin</label>
                     <select
