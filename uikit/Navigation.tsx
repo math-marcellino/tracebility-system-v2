@@ -23,15 +23,29 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
     return (
         <div className="flex flex-row items-center py-6 px-16 justify-between">
             <div className="flex flex-row items-center gap-8">
-                <p className="font-extrabold text-2xl text-center">
-                    Traceability <br /> System
-                </p>
-                <a href="" className="text-base">
-                    Home
-                </a>
-                <a href="" className="text-base">
-                    Dashboard
-                </a>
+                <Link href="/">
+                    <p className="font-extrabold text-2xl text-center">
+                        Traceability <br /> System
+                    </p>
+                </Link>
+                <Link href="/">
+                    <a className="text-base">Home</a>
+                </Link>
+                {role === 'RPH' && (
+                    <Link href="/rph-page">
+                        <a className="text-base">Tambah Data Pemotongan</a>
+                    </Link>
+                )}
+                {role === 'Distributor' && (
+                    <Link href="/distributor-page">
+                        <a className="text-base">Tambah Data Pemotongan</a>
+                    </Link>
+                )}
+                {role === 'Hotel' && (
+                    <Link href="/hotel-page">
+                        <a className="text-base">Tambah Data Pemotongan</a>
+                    </Link>
+                )}
             </div>
 
             {isLoggedIn ? (
