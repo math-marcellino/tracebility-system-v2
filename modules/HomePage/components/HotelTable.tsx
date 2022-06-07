@@ -15,7 +15,11 @@ const HotelTable: FunctionComponent<HotelTableProps> = ({}) => {
             label: 'Hotel Batch ID',
         },
         {
-            name: 'DisributorBatchID',
+            name: 'timestamp',
+            label: 'Date',
+        },
+        {
+            name: 'DistributorBatchID',
             label: 'Distributor Batch ID',
         },
         {
@@ -24,7 +28,7 @@ const HotelTable: FunctionComponent<HotelTableProps> = ({}) => {
         },
         {
             name: 'caraPengolahan',
-            label: 'Status Pemotongan',
+            label: 'Cara Pengolahan',
         },
         {
             name: 'verifier',
@@ -33,10 +37,6 @@ const HotelTable: FunctionComponent<HotelTableProps> = ({}) => {
         {
             name: 'sertifikatHalal',
             label: 'Status Kehalalan',
-        },
-        {
-            name: 'timestamp',
-            label: 'Date',
         },
     ];
 

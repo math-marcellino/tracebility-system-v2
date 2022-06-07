@@ -15,6 +15,10 @@ const DistributorTable: FunctionComponent<DistributorTableProps> = ({}) => {
             label: 'Distributor Batch ID',
         },
         {
+            name: 'timestamp',
+            label: 'Date',
+        },
+        {
             name: 'RPHBatchID',
             label: 'RPH Batch ID',
         },
@@ -37,10 +41,6 @@ const DistributorTable: FunctionComponent<DistributorTableProps> = ({}) => {
         {
             name: 'sertifikatHalal',
             label: 'Status Kehalalan',
-        },
-        {
-            name: 'timestamp',
-            label: 'Date',
         },
     ];
 
