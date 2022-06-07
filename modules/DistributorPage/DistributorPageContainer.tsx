@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useUserContext } from '../UserContext';
 import { useProvider } from 'wagmi'
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI'
 import { ethers } from 'ethers';
@@ -12,6 +12,7 @@ type DistributorPageContainerProps = {}
 const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps> = ({}) => {
     const [distributorInfo, setDistributorInfo] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+    const { namaLengkap } = useUserContext();
     
     const provider = useProvider()
     const walletSigner = new ethers.Wallet(privateKey, provider)
@@ -21,17 +22,19 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
         setIsLoading(true)
         try {
             const {
+                RPHBatchID,
                 durasiPenyimpanan,
                 caraPenyimpanan,
                 statusPenyimpanan,
                 sertifHalal,
             }: any = distributorInfo
-            const tx = await useContract.step2(
+            const tx = await useContract.setDataPenyimpanan(
+                RPHBatchID,
                 durasiPenyimpanan,
                 caraPenyimpanan,
                 statusPenyimpanan,
                 sertifHalal,
-                "William Chandra"
+                namaLengkap
             )
             console.log(tx)
             await tx.wait()
@@ -47,8 +50,23 @@ const DistributorPageContainer: FunctionComponent<DistributorPageContainerProps>
         <div className="flex h-screen w-screen items-center justify-center">
             <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
                 <p className="text-3xl font-bold">
-                    Input Data Distributor
+                    Input Data Penyimpanan
                 </p>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label htmlFor="RPHBatchID">RPH Batch ID</label>
+                    <input
+                        type="text"
+                        name="RPHBatchID"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        onChange={(e) =>
+                            setDistributorInfo({
+                                ...distributorInfo,
+                                [e.target.name]: e.target.value,
+                            })
+                        }
+                        placeholder="RPH Batch ID"
+                    />
+                </div>
                 <div className="flex flex-col space-y-1 w-full">
                     <label htmlFor="durasiPenyimpanan">Durasi Penyimpanan ( Hari )</label>
                     <input

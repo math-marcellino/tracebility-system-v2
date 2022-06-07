@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useUserContext } from '../UserContext';
 import { useProvider } from 'wagmi'
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI'
 import { ethers } from 'ethers';
@@ -12,7 +12,8 @@ type HotelPageContainerProps = {};
 const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
     const [hotelInfo, setHotelInfo] = useState({})
     const [isLoading, setIsLoading] = useState(false);
-    
+    const { namaLengkap } = useUserContext();
+
     const provider = useProvider()
     const walletSigner = new ethers.Wallet(privateKey, provider)
     const useContract = new ethers.Contract(contractAddress, jsonABI, walletSigner)
@@ -21,15 +22,17 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
         setIsLoading(true)
         try {
             const {
+                DistributorBatchID,
                 tanggalPengolahan,
                 caraPengolahan,
                 sertifHalal
             }: any = hotelInfo
-            const tx = await useContract.step3(
+            const tx = await useContract.setDataPengolahan(
+                DistributorBatchID,
                 tanggalPengolahan,
                 caraPengolahan,
                 sertifHalal,
-                "William Chandra"
+                namaLengkap
             )
             console.log(tx)
             await tx.wait()
@@ -45,8 +48,23 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
         <div className="flex h-screen w-screen items-center justify-center">
             <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
                 <p className="text-3xl font-bold">
-                    Input Data Hotel
+                    Input Data Pengolahan
                 </p>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label htmlFor="DistributorBatchID">Distributor Batch ID</label>
+                    <input
+                        type="text"
+                        name="DistributorBatchID"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        onChange={(e) =>
+                            setHotelInfo({
+                                ...hotelInfo,
+                                [e.target.name]: e.target.value,
+                            })
+                        }
+                        placeholder="Distributor Batch ID"
+                    />
+                </div>
                 <div className="flex flex-col space-y-1 w-full">
                     <label htmlFor="tanggalPengolahan">Tanggal Pengolahan</label>
                     <input
@@ -62,7 +80,7 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="caraPengolahan">cara Pengolahan</label>
+                    <label htmlFor="caraPengolahan">Cara Pengolahan</label>
                     <input
                         type="text"
                         name="caraPengolahan"
