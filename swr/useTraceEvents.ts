@@ -8,7 +8,7 @@ export type TraceEventsRequest = {
 };
 
 export type TraceRPHResult = {
-    batchID: number;
+    RPHBatchID: string;
     jenisKelamin: string;
     tanggalPemotongan: string;
     statusPemotongan: string;
@@ -18,7 +18,8 @@ export type TraceRPHResult = {
 };
 
 export type TraceDistributorResult = {
-    batchID: number;
+    DistributorBatchID: string;
+    RPHBatchID: string;
     durasiPenyimpanan: number;
     caraPenyimpanan: string;
     statusPenyimpanan: string;
@@ -28,7 +29,8 @@ export type TraceDistributorResult = {
 };
 
 export type TraceHotelResult = {
-    batchID: number;
+    HotelBatchID: string;
+    DistributorBatchID: string;
     tanggalPengolahan: string;
     caraPengolahan: string;
     verifier: string;
@@ -88,7 +90,7 @@ export function useTraceRPH(req: TraceEventsRequest) {
                 minute: 'numeric',
             }).format(date);
             const event: TraceRPHResult = {
-                batchID: item.args?.batchID.toNumber(),
+                RPHBatchID: item.args?.RPHBatchID,
                 jenisKelamin: item.args?.jenis_kelamin,
                 tanggalPemotongan: item.args?.tanggal_pemotongan,
                 statusPemotongan: item.args?.status_pemotongan,
@@ -128,7 +130,8 @@ export function useTraceDistributor(req: TraceEventsRequest) {
                 minute: 'numeric',
             }).format(date);
             const event: TraceDistributorResult = {
-                batchID: item.args?.batchID.toNumber(),
+                DistributorBatchID: item.args?.DistributorBatchID,
+                RPHBatchID: item.args?.RPHBatchID,
                 durasiPenyimpanan: item.args?.durasi_penyimpanan.toNumber(),
                 caraPenyimpanan: item.args?.cara_penyimpanan,
                 statusPenyimpanan: item.args?.status_penyimpanan,
@@ -168,7 +171,8 @@ export function useTraceHotel(req: TraceEventsRequest) {
                 minute: 'numeric',
             }).format(date);
             const event: TraceHotelResult = {
-                batchID: item.args?.batchID.toNumber(),
+                HotelBatchID: item.args?.HotelBatchID,
+                DistributorBatchID: item.args?.DistributorBatchID,
                 tanggalPengolahan: item.args?.tanggal_pengolahan,
                 caraPengolahan: item.args?.cara_pengolahan,
                 verifier: item.args?.verifier,

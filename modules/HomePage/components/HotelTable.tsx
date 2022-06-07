@@ -11,8 +11,12 @@ const HotelTable: FunctionComponent<HotelTableProps> = ({}) => {
 
     const columnsHotel: MUIDataTableColumn[] = [
         {
-            name: 'batchID',
-            label: 'Batch ID',
+            name: 'HotelBatchID',
+            label: 'Hotel Batch ID',
+        },
+        {
+            name: 'DisributorBatchID',
+            label: 'Distributor Batch ID',
         },
         {
             name: 'tanggalPengolahan',

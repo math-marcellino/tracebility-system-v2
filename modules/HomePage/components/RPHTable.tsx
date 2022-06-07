@@ -8,11 +8,12 @@ type RPHTableProps = {};
 const RPHTable: FunctionComponent<RPHTableProps> = ({}) => {
     const provider = useProvider();
     const events = useTraceRPH({ provider });
+    console.log(events);
 
     const columnsRPH: MUIDataTableColumn[] = [
         {
-            name: 'batchID',
-            label: 'Batch ID',
+            name: 'RPHBatchID',
+            label: 'RPH Batch ID',
         },
         {
             name: 'jenisKelamin',

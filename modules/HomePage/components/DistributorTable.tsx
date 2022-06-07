@@ -11,8 +11,12 @@ const DistributorTable: FunctionComponent<DistributorTableProps> = ({}) => {
 
     const columnsDistributor: MUIDataTableColumn[] = [
         {
-            name: 'batchID',
-            label: 'Batch ID',
+            name: 'DistributorBatchID',
+            label: 'Distributor Batch ID',
+        },
+        {
+            name: 'RPHBatchID',
+            label: 'RPH Batch ID',
         },
         {
             name: 'durasiPenyimpanan',
