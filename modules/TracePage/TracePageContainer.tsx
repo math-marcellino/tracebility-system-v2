@@ -17,8 +17,8 @@ const TracePageContainer: FunctionComponent<TracePageContainerProps> = ({}) => {
     console.log(distributorData);
     console.log(RPHData);
     return (
-        <div className='flex flex-col h-screen items-center justify-center gap-16'>
-            <h1 className='font-extrabold text-5xl'>Trace</h1>
+        <div className="flex flex-col h-screen items-center justify-center gap-16">
+            <h1 className="font-extrabold text-5xl">Trace</h1>
             <div className="flex flex-row items-center justify-center gap-x-16">
                 <HotelInfoCard setHotelData={setHotelData} />
                 <DistributorInfoCard
