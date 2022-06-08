@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 module.exports = () => {
-  mongoose.connect(`mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`, {
+  mongoose.connect(`mongodb+srv://William:immanuel245@cluster0.mfzcula.mongodb.net/?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, () => {
