@@ -14,24 +14,28 @@ const TracePageContainer: FunctionComponent<TracePageContainerProps> = ({}) => {
     >();
     const [RPHData, setRPHData] = useState<Result | undefined>();
     console.log(hotelData);
-    console.log(distributorData);
-    console.log(RPHData);
     return (
         <div className="flex flex-col h-screen items-center justify-center gap-16">
             <h1 className="font-extrabold text-5xl">Trace</h1>
-            <div className="flex flex-row items-center justify-center gap-x-8">
-                <HotelInfoCard setHotelData={setHotelData} />
-                <p className="text-6xl">&rarr;</p>
-                <DistributorInfoCard
-                    setDistributorData={setDistributorData}
-                    distributorBatchID={hotelData?.[0]}
-                />
-                <p className="text-6xl">&rarr;</p>
-                <RPHInfoCard
-                    setRPHData={setRPHData}
-                    RPHBatchID={distributorData?.[0]}
-                />
-            </div>
+            {hotelData?.[0] === '' ? (
+                <div className="bg-gray-800 rounded-xl py-5 px-16">
+                    <h1 className="text-3xl font-bold">Data not found!</h1>
+                </div>
+            ) : (
+                <div className="flex flex-row items-center justify-center gap-x-8">
+                    <HotelInfoCard setHotelData={setHotelData} />
+                    <p className="text-6xl">&rarr;</p>
+                    <DistributorInfoCard
+                        setDistributorData={setDistributorData}
+                        distributorBatchID={hotelData?.[0]}
+                    />
+                    <p className="text-6xl">&rarr;</p>
+                    <RPHInfoCard
+                        setRPHData={setRPHData}
+                        RPHBatchID={distributorData?.[0]}
+                    />
+                </div>
+            )}
         </div>
     );
 };
