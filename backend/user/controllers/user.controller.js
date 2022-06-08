@@ -1,5 +1,6 @@
-const userDB = require('../models/user.model')
-const roleDB = require('../models/role.model')
+const usersDB = require('../models/users.model')
+const rolesDB = require('../models/roles.model')
+
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
@@ -11,23 +12,22 @@ exports.signUp = async (req, res) => {
     password
   } = req.body
 
-  try{
-    const account = await userDB.query().where({username})
-
-    if(account.length > 0)
-      return res.status(403).send({message: "Sudah pernah mendaftar sebelumnya"})
-    
+  try{    
     const fixPassword = await bcrypt.hash(password, 8)
 
-    await userDB.query().insert({
+    const findRole = await rolesDB.where({role: role})
+
+    const addUsers = new usersDB({
       username,
       nama_lengkap,
-      role,
+      role: findRole[0],
       password: fixPassword
     })
 
+    await addUsers.save()
+
     return res.status(200).send({
-      message: "Berhasil Mendaftar"
+      message: "Berhasil Mendaftar",
     })
   } catch(err) {
     return res.status(500).send({message: err.message})
@@ -41,7 +41,7 @@ exports.signIn = async (req, res) => {
   } = req.body
 
   try{
-    const account = await userDB.query().where({username})
+    const account = await usersDB.where({username})
 
     if(account.length === 0){
       return res.status(401).send({message: "Username atau Password tidak tepat."})
@@ -53,12 +53,10 @@ exports.signIn = async (req, res) => {
       return res.status(401).send({message: "Username atau Password tidak tepat"})
     }
 
-    const role = await roleDB.query().where({id: account[0].role})
-
     const token = jwt.sign({
       username: username,
       namaLengkap: account[0].nama_lengkap,
-      role: role[0].role,
+      role: account[0].role.role,
     }, process.env.JWT_KEY, {
       expiresIn: 21600
     })
@@ -66,9 +64,6 @@ exports.signIn = async (req, res) => {
     return res.status(200).send({
       result: "Successful Login",
       token: token,
-      username: account[0].username,
-      namaLengkap: account[0].nama_lengkap,
-      role: role[0].role,
     })
 
   } catch(err) {

@@ -16,6 +16,7 @@
     "express-fileupload": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.1.0",
+    "mongoose": "^6.3.6",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "objection": "^3.0.1"
