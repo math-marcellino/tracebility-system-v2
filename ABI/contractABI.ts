@@ -384,5 +384,5 @@ export const jsonABI = [
 		"type": "function"
 	}
 ]
-export const contractAddress = '0x5EcD358812c70BB35759F555C59ad53A3B4d850A';
+export const contractAddress = '0xA2a5b78E483f244D0ba5663f56ba76712aA0793d';
 export const privateKey = "a61642fd40b7b9450ca16ca141a3dfc695fcaa3e32550297addb5e1741f7f08a"
