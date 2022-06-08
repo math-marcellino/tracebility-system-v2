@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 31, 2022 at 10:38 AM
+-- Generation Time: Jun 08, 2022 at 08:15 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -24,27 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
---
-
-CREATE TABLE `role` (
-  `id` int(11) NOT NULL,
-  `role` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `role`
---
-
-INSERT INTO `role` (`id`, `role`) VALUES
-(1, 'RPH'),
-(2, 'Distributor'),
-(3, 'Hotel'),
-(4, 'Konsumen');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -53,7 +32,6 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `nama_lengkap` varchar(255) NOT NULL,
   `role` int(11) NOT NULL,
-  `no_sertifHalal` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -61,18 +39,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `nama_lengkap`, `role`, `no_sertifHalal`, `password`) VALUES
-(1, 'willy07', 'William Chandra', 1, '12345', '$2a$08$OpsCuLIyX8TxUZDLEvMf1uIU45Hv7/J.IKLN1eHS2x7xFzRa.bVGW');
+INSERT INTO `users` (`id`, `username`, `nama_lengkap`, `role`, `password`) VALUES
+(1, 'willy07', 'William Chandra', 1, '$2a$08$OpsCuLIyX8TxUZDLEvMf1uIU45Hv7/J.IKLN1eHS2x7xFzRa.bVGW'),
+(2, 'math08', 'Matthew Marcellino', 2, '$2a$08$yR/rCrP0/.9GZdmbtMERhe8evxtzyX4AcpBKQBV9sYSQPGT6ltBYu'),
+(3, 'hotel09', 'Akun Hotel', 3, '$2a$08$kjVc8CqjIwTD6m06v.WEMuDfYNFet9zVcvwnO.2qaRAIMzOSKsQLO');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -86,16 +60,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `role`
---
-ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
