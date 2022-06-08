@@ -20,7 +20,6 @@ contract TraceabilityV2{
   mapping(string => RPH) public RPHBatch;
   mapping(string => Distributor) public DistributorBatch;
   mapping(string => Hotel) public HotelBatch;
-  mapping(string => Pengiriman[]) public PengirimanBatch;
 
   enum StatusPengiriman {OTW, SAMPAI}
 
@@ -80,18 +79,9 @@ contract TraceabilityV2{
     uint256 time
   );
 
-  struct Pengiriman{
-    string batchID;
-    string tanggal_pengiriman;
-    string tanggal_penerimaan;
-    string tujuan;
-    StatusPengiriman status;
-  }
-  
   uint indexRPH;
   uint indexDistributor;
   uint indexHotel;
-  uint indexPengiriman;
 
   function setDataPemotongan(
     string memory jenisKelamin,
@@ -113,8 +103,8 @@ contract TraceabilityV2{
         RPHBatch[ID].jenis_kelamin,
         RPHBatch[ID].tanggal_pemotongan,
         RPHBatch[ID].status_pemotongan,
-        RPHBatch[ID].sertifHalal,
         RPHBatch[ID].verifier,
+        RPHBatch[ID].sertifHalal,
         block.timestamp
       );
   }
@@ -142,8 +132,8 @@ contract TraceabilityV2{
         DistributorBatch[ID].durasi_penyimpanan,
         DistributorBatch[ID].cara_penyimpanan,
         DistributorBatch[ID].status_penyimpanan,
-        DistributorBatch[ID].sertifHalal,
         DistributorBatch[ID].verifier,
+        DistributorBatch[ID].sertifHalal,
         block.timestamp
       );
   }
@@ -168,33 +158,10 @@ contract TraceabilityV2{
       HotelBatch[ID].DistributorBatchID = DistributorBatchID,
       HotelBatch[ID].tanggal_pengolahan,
       HotelBatch[ID].cara_pengolahan,
-      HotelBatch[ID].sertifHalal,
       HotelBatch[ID].verifier,
+      HotelBatch[ID].sertifHalal,
       block.timestamp
     );
   }
-
-  // function pengiriman(
-  //   string memory batchID,
-  //   string memory Code,
-  //   string memory tanggalPengiriman,
-  //   string memory tujuan
-  // ) public onlyOwner {
-  //   indexPengiriman++;
-    
-  //   Pengiriman memory temp;
-  //   temp.batchID = batchID;
-  //   temp.tanggal_pengiriman = tanggalPengiriman;
-  //   temp.tujuan = tujuan;
-
-  //   PengirimanBatch[Code].push(temp);
-  // }  
-
-  // function penerimaan(
-  //   uint256 index,
-  //   string memory Code,
-  //   string memory tanggalPenerimaan
-  // ) public onlyOwner {
-  //   PengirimanBatch[Code][index].tanggal_penerimaan = tanggalPenerimaan;
-  // }
 }
+
