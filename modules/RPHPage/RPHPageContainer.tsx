@@ -31,7 +31,7 @@ const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
                 statusPemotongan,
                 sertifHalal,
             }: any = rphInfo;
-            const tx = await ContractInstance.createItem(
+            const tx = await ContractInstance.setDataPemotongan(
                 jenisKelamin,
                 tanggalPemotongan,
                 statusPemotongan,
