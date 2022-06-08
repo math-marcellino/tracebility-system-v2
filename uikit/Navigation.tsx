@@ -68,9 +68,6 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                         </Menu.Button>
                         <Menu.Items className="absolute bg-slate-200 px-4 py-3 mt-8 w-fit text-gray-900 flex flex-col gap-2 rounded-lg">
                             <Menu.Item>
-                                <a href="/">Account</a>
-                            </Menu.Item>
-                            <Menu.Item>
                                 <button
                                     onClick={() => {
                                         deleteToken('');
