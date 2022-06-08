@@ -4,7 +4,7 @@ module.exports = {
       connection: {
       host: '127.0.0.1',
       user: 'root', // replace with your mysql username
-      password: '', // replace with your mysql password
+      password: 'immanuel245', // replace with your mysql password
       database: 'tracebility'
     },
     debug: true,

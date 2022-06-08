@@ -8,7 +8,6 @@ exports.signUp = async (req, res) => {
     username,
     nama_lengkap,
     role,
-    no_sertifHalal,
     password
   } = req.body
 
@@ -24,7 +23,6 @@ exports.signUp = async (req, res) => {
       username,
       nama_lengkap,
       role,
-      no_sertifHalal,
       password: fixPassword
     })
 
@@ -61,7 +59,6 @@ exports.signIn = async (req, res) => {
       username: username,
       namaLengkap: account[0].nama_lengkap,
       role: role[0].role,
-      noSertifHalal: account[0].no_sertifHalal
     }, process.env.JWT_KEY, {
       expiresIn: 21600
     })
