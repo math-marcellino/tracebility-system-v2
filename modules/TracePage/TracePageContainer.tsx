@@ -19,12 +19,14 @@ const TracePageContainer: FunctionComponent<TracePageContainerProps> = ({}) => {
     return (
         <div className="flex flex-col h-screen items-center justify-center gap-16">
             <h1 className="font-extrabold text-5xl">Trace</h1>
-            <div className="flex flex-row items-center justify-center gap-x-16">
+            <div className="flex flex-row items-center justify-center gap-x-8">
                 <HotelInfoCard setHotelData={setHotelData} />
+                <p className="text-6xl">&rarr;</p>
                 <DistributorInfoCard
                     setDistributorData={setDistributorData}
                     distributorBatchID={hotelData?.[0]}
                 />
+                <p className="text-6xl">&rarr;</p>
                 <RPHInfoCard
                     setRPHData={setRPHData}
                     RPHBatchID={distributorData?.[0]}
