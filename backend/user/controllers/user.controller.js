@@ -1,6 +1,5 @@
-const usersDB = require('../models/users.model')
-const rolesDB = require('../models/roles.model')
-
+const roleDB = require('../models/role.model')
+const userDB = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
@@ -15,16 +14,12 @@ exports.signUp = async (req, res) => {
   try{    
     const fixPassword = await bcrypt.hash(password, 8)
 
-    const findRole = await rolesDB.where({role: role})
-
-    const addUsers = new usersDB({
+    await userDB.query().insert({
       username,
       nama_lengkap,
-      role: findRole[0],
+      role,
       password: fixPassword
     })
-
-    await addUsers.save()
 
     return res.status(200).send({
       message: "Berhasil Mendaftar",
@@ -41,7 +36,7 @@ exports.signIn = async (req, res) => {
   } = req.body
 
   try{
-    const account = await usersDB.where({username})
+    const account = await userDB.query().where({username})
 
     if(account.length === 0){
       return res.status(401).send({message: "Username atau Password tidak tepat."})
@@ -53,17 +48,19 @@ exports.signIn = async (req, res) => {
       return res.status(401).send({message: "Username atau Password tidak tepat"})
     }
 
+    const role = await roleDB.query().where({id: account[0].role})
+
     const token = jwt.sign({
       username: username,
       namaLengkap: account[0].nama_lengkap,
-      role: account[0].role.role,
+      role: role[0].role,
     }, process.env.JWT_KEY, {
       expiresIn: 21600
     })
 
     return res.status(200).send({
       result: "Successful Login",
-      token: token,
+      token
     })
 
   } catch(err) {
