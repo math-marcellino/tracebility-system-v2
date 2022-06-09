@@ -8,7 +8,7 @@ import { Menu } from '@headlessui/react';
 type NavigationProps = {};
 
 const Navigation: FunctionComponent<NavigationProps> = ({}) => {
-    const { namaLengkap, role } = useUserContext();
+    const { namaLengkap, role, deleteUserData } = useUserContext();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [, deleteToken] = useLocalStorage('token', '');
     const jwt = useReadLocalStorage('token');
@@ -71,6 +71,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                                 <button
                                     onClick={() => {
                                         deleteToken('');
+                                        deleteUserData();
                                     }}
                                     className="flex gap-2"
                                 >

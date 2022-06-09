@@ -8,6 +8,7 @@ type UserContextType = {
     username: string | undefined;
     role: string | undefined;
     noSertifHalal: string | undefined;
+    deleteUserData: () => void;
 };
 
 const UserContext = createContext<UserContextType>({
@@ -15,6 +16,7 @@ const UserContext = createContext<UserContextType>({
     username: undefined,
     role: undefined,
     noSertifHalal: undefined,
+    deleteUserData: () => {},
 });
 
 type UserContextWrapperType = {
@@ -29,8 +31,19 @@ export const UserContextWrapper: FunctionComponent<UserContextWrapperType> = ({
         username: undefined,
         role: undefined,
         noSertifHalal: undefined,
+        deleteUserData: () => {},
     });
     const jwtToken = useReadLocalStorage<string>('token');
+
+    const deleteUserData = () => {
+        setUserData({
+            ...userData,
+            namaLengkap: undefined,
+            username: undefined,
+            role: undefined,
+            noSertifHalal: undefined,
+        });
+    };
 
     useEffect(() => {
         if (jwtToken) {
@@ -45,6 +58,7 @@ export const UserContextWrapper: FunctionComponent<UserContextWrapperType> = ({
                 role: decodedToken.role,
                 noSertifHalal: decodedToken.noSertifHalal,
                 namaLengkap: decodedToken.namaLengkap,
+                deleteUserData: deleteUserData,
             };
             setUserData(data);
         }
