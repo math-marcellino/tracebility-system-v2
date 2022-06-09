@@ -12,7 +12,7 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
     const [userInfo, setUserInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [, setLocalStorage] = useLocalStorage('token', '');
-    const jwt = useReadLocalStorage('token')
+    const jwt = useReadLocalStorage('token');
 
     useEffect(() => {
         if (jwt) {
@@ -24,7 +24,7 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
         setIsLoading(true);
         try {
             const result = await axios.post(
-                'http://localhost:8080/api/user/acc/signIn',
+                'https://tracebility-project.herokuapp.com/api/user/acc/signIn',
                 userInfo
             );
             setLocalStorage(result.data.token);
