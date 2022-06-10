@@ -35,6 +35,7 @@ Pada aplikasi ini, para aktor dapat saling berkoordinasi dengan cara memasukkan 
 ![image](https://user-images.githubusercontent.com/81855912/172974145-a48c5cc4-c7cc-44d4-a353-1d2051c14b3e.png)
 ![image](https://user-images.githubusercontent.com/81855912/172974216-194f3d53-1a67-43ca-b732-4253506e94db.png)
 
+- Data yang dimasukkan oleh para aktor akan disimpan ke dalam blockchain melalui smart contract
 
 ### 2. Konsummen
 - Konsumen pada kasus ini diasumsikan sebagai pelanggan pada restoran di dalam hotel. 
@@ -46,6 +47,7 @@ Pada aplikasi ini, para aktor dapat saling berkoordinasi dengan cara memasukkan 
 - Hasil scan QR Code
 ![image](https://user-images.githubusercontent.com/81855912/172975166-97a12367-1fb8-4667-b02f-10771810723e.png)
 
+- Data yang dilihat oleh konsumen didapatkan dari blockchain melalui smart contract
 
 ## Resource
 ### List Akun Stakeholder
