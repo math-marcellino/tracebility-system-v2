@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "backend/user/controllers/user.controller.js", "backend/ABI/contractABI.js"],
   "exclude": ["node_modules"]
 }

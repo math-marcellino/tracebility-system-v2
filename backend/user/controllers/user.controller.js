@@ -2,13 +2,25 @@ const roleDB = require('../models/role.model')
 const userDB = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const {ethers} = require('ethers')
+const {jsonABI, contractAddress, privateKey} = require('../../ABI/contractABI')
+const mumbaiProvider = new ethers.providers.JsonRpcProvider(
+  'https://speedy-nodes-nyc.moralis.io/0f6aa643f70545beebc8e4f9/polygon/mumbai', 80001
+)
+const walletSigner = new ethers.Wallet(privateKey, mumbaiProvider)
+const useContract = new ethers.Contract(
+  contractAddress,
+  jsonABI,
+  walletSigner
+)
 
 exports.signUp = async (req, res) => {
   const{
     username,
     nama_lengkap,
     role,
-    password
+    password,
+    sertifikatHalal
   } = req.body
 
   try{    
@@ -18,8 +30,20 @@ exports.signUp = async (req, res) => {
       username,
       nama_lengkap,
       role,
-      password: fixPassword
+      password: fixPassword,
+      sertifikatHalal
     })
+
+    const roleName = await roleDB.query().where({id: role})
+
+    const tx = await useContract.register(
+      roleName[0].role,
+      nama_lengkap,
+      username,
+      sertifikatHalal
+    );
+    console.log(tx);
+    await tx.wait();
 
     return res.status(200).send({
       message: "Berhasil Mendaftar",
