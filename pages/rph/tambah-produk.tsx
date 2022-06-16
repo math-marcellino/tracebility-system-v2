@@ -1,25 +1,25 @@
 import type { NextPage } from 'next';
-import PageMetadata from '../../uikit/PageMetadata';
-import RPHPageContainer from '../../modules/RPHPage/RPHPageContainer';
 import Navigation from '../../uikit/Navigation';
+import PageMetadata from '../../uikit/PageMetadata';
 import { useUserContext } from '../../modules/UserContext';
 import NoAccessPage from '../../uikit/NoAccessPage';
+import ProdukContainer from '../../modules/RPHPage/ProdukContainer';
 
-const RPHPage: NextPage = () => {
+const TambahDataProduk: NextPage = () => {
     const { role } = useUserContext();
     return (
-        <>
+        <div>
             {role === 'RPH' ? (
                 <>
                     <Navigation />
-                    <PageMetadata page="RPH Page" />
-                    <RPHPageContainer />
+                    <PageMetadata page="Tambah Data Pemotongan" />
+                    <ProdukContainer />
                 </>
             ) : (
                 <NoAccessPage />
             )}
-        </>
+        </div>
     );
 };
 
-export default RPHPage;
+export default TambahDataProduk;

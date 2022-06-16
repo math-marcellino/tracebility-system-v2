@@ -32,9 +32,14 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                     <a className="text-base">Home</a>
                 </Link>
                 {role === 'RPH' && (
-                    <Link href="/rph-page">
-                        <a className="text-base">Tambah Data Pemotongan</a>
-                    </Link>
+                    <>
+                        <Link href="/rph/tambah-pemotongan">
+                            <a className="text-base">Tambah Data Pemotongan</a>
+                        </Link>
+                        <Link href="/rph/tambah-produk">
+                            <a className="text-base">Tambah Data Produk RPH</a>
+                        </Link>
+                    </>
                 )}
                 {role === 'Distributor' && (
                     <Link href="/distributor-page">

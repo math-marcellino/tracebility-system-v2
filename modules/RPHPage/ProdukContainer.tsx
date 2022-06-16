@@ -5,14 +5,20 @@ import { useUserContext } from '../UserContext';
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 
-type RPHPageContainerProps = {};
+type ProdukContainerProps = {};
 
-const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
-    const [rphInfo, setRphInfo] = useState({});
+interface IDataProduk {
+    _ID_Pemotongan: string;
+    _nama: string;
+    _statusKehalalan: string;
+}
+
+const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
     const [isLoading, setIsLoading] = useState(false);
-    const { namaLengkap } = useUserContext();
+    const { register, handleSubmit } = useForm<IDataProduk>();
 
     const provider = useProvider();
     const walletSigner = new ethers.Wallet(privateKey, provider);
@@ -22,21 +28,13 @@ const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
         walletSigner
     );
 
-    const handleInput = async () => {
+    const sendTransaction: SubmitHandler<IDataProduk> = async (data) => {
         setIsLoading(true);
         try {
-            const {
-                jenisKelamin,
-                tanggalPemotongan,
-                statusPemotongan,
-                sertifHalal,
-            }: any = rphInfo;
-            const tx = await ContractInstance.setDataPemotongan(
-                jenisKelamin,
-                tanggalPemotongan,
-                statusPemotongan,
-                sertifHalal,
-                namaLengkap
+            const tx = await ContractInstance.setDataProdukRPH(
+                data._ID_Pemotongan,
+                data._nama,
+                data._statusKehalalan
             );
             console.log(tx);
             await tx.wait();
@@ -45,80 +43,48 @@ const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
         } catch (err) {
             setIsLoading(false);
             console.log(err);
-            toast.error(`${err}`);
+            toast.error(
+                'Transaction failed, please check the console in your browser!'
+            );
         }
     };
     return (
         <div className="flex h-screen items-center justify-center">
-            <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
-                <p className="text-3xl font-bold">Input Data Pemotongan</p>
+            <form
+                onSubmit={handleSubmit(sendTransaction)}
+                className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]"
+            >
+                <p className="text-3xl font-bold">Tambah Data Produk RPH</p>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="a">Jenis Kelamin</label>
+                    <label htmlFor="a">ID Pemotongan</label>
+                    <input
+                        type="text"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        {...register('_ID_Pemotongan', { required: true })}
+                    />
+                </div>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label htmlFor="tanggalPemotongan">Nama Produk</label>
+                    <input
+                        type="text"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        {...register('_nama', { required: true })}
+                    />
+                </div>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label htmlFor="statusKehalalan">Status Kehalalan</label>
                     <select
-                        name="jenisKelamin"
-                        id="jenisKelamin"
                         className="text-gray-900 rounded-md px-2 py-2"
-                        onChange={(e) =>
-                            setRphInfo({
-                                ...rphInfo,
-                                [e.target.id]: e.target.value,
-                            })
-                        }
+                        {...register('_statusKehalalan', { required: true })}
                     >
-                        <option selected disabled>
-                            Choose an Option
-                        </option>
-                        <option value="Jantan">Jantan</option>
-                        <option value="Betina">Betina</option>
+                        <option value="Halal">Halal</option>
+                        <option value="Tidak Halal">Tidak Halal</option>
                     </select>
                 </div>
-                <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="tanggalPemotongan">
-                        Tanggal Pemotongan
-                    </label>
-                    <input
-                        type="date"
-                        name="tanggalPemotongan"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setRphInfo({
-                                ...rphInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="statusPemotongan">Status Pemotongan</label>
-                    <input
-                        type="text"
-                        name="statusPemotongan"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setRphInfo({
-                                ...rphInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="sertifHalal">Sertifikat Halal</label>
-                    <input
-                        type="text"
-                        name="sertifHalal"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setRphInfo({
-                                ...rphInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
-                </div>
                 <button
-                    onClick={handleInput}
+                    type="submit"
                     className="bg-gray-900 hover:bg-gray-800 active:scale-90 transition ease-in-out w-full p-2.5 rounded-xl"
+                    disabled={isLoading}
                 >
                     {isLoading ? (
                         <p className="flex items-center justify-center">
@@ -148,7 +114,7 @@ const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
                         <p>Submit</p>
                     )}
                 </button>
-            </div>
+            </form>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -165,4 +131,4 @@ const RPHPageContainer: FunctionComponent<RPHPageContainerProps> = ({}) => {
     );
 };
 
-export default RPHPageContainer;
+export default ProdukContainer;
