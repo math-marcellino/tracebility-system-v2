@@ -10,68 +10,19 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "DistributorBatchID",
+				"name": "ID_Makanan",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "RPHBatchID",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "durasi_penyimpanan",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "cara_penyimpanan",
+				"name": "ID_Hotel",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "status_penyimpanan",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "time",
-				"type": "uint256"
-			}
-		],
-		"name": "DistributorTrace",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "HotelBatchID",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "DistributorBatchID",
+				"name": "nama",
 				"type": "string"
 			},
 			{
@@ -89,23 +40,17 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "sertifHalal",
+				"name": "status_kehalalan",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "time",
+				"name": "date",
 				"type": "uint256"
 			}
 		],
-		"name": "HotelTrace",
+		"name": "TraceMakanan",
 		"type": "event"
 	},
 	{
@@ -114,7 +59,13 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "RPHBatchID",
+				"name": "ID_Pemotongan",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "ID_RPH",
 				"type": "string"
 			},
 			{
@@ -132,56 +83,356 @@ export const jsonABI = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "status_pemotongan",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "sertifHalal",
+				"name": "status_kehalalan",
 				"type": "string"
 			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "time",
+				"name": "date",
 				"type": "uint256"
 			}
 		],
-		"name": "RPHTrace",
+		"name": "TracePemotongan",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "ID_ProdukDistributor",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "ID_Distributor",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "nama",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "durasi_penyimpanan",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "cara_penyimpanan",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "status_kehalalan",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "date",
+				"type": "uint256"
+			}
+		],
+		"name": "TraceProdukDistributor",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "ID_ProdukRPH",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "ID_Pemotongan",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "nama",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "status_kehalalan",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "date",
+				"type": "uint256"
+			}
+		],
+		"name": "TraceProdukRPH",
 		"type": "event"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "jenisKelamin",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "MakananBatch",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "ID_Hotel",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "tanggalPemotongan",
+				"name": "nama",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "statusPemotongan",
+				"name": "tanggal_pengolahan",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "sertifHalal",
+				"name": "cara_pengolahan",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "verifier",
+				"name": "status_kehalalan",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "PemotonganBatch",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "ID_RPH",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "jenis_kelamin",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "tanggal_pemotongan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "status_kehalalan",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "ProdukDistributorBatch",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "ID_Distributor",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "nama",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "durasi_penyimpanan",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "cara_penyimpanan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "status_kehalalan",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "ProdukRPHBatch",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "ID_Pemotongan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "nama",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "status_kehalalan",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "Users",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "nama",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "sertifikatHalal",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "role",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_role",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_nama",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_username",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_sertifikatHalal",
+				"type": "string"
+			}
+		],
+		"name": "register",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_ID_Hotel",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_nama",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_tanggalPengolahan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_caraPengolahan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_statusKehalalan",
+				"type": "string"
+			}
+		],
+		"name": "setDataMakanan",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_ID_RPH",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_jenisKelamin",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_tanggalPemotongan",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_statusKehalalan",
 				"type": "string"
 			}
 		],
@@ -194,31 +445,31 @@ export const jsonABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "DistributorBatchID",
+				"name": "_ID_Distributor",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "tanggalPengolahan",
+				"name": "_nama",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_durasiPenyimpanan",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_caraPenyimpanan",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "caraPengolahan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
+				"name": "_statusKehalalan",
 				"type": "string"
 			}
 		],
-		"name": "setDataPengolahan",
+		"name": "setDataProdukDistributor",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -227,162 +478,25 @@ export const jsonABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "RPHBatchID",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "durasiPenyimpanan",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "caraPenyimpanan",
+				"name": "_ID_Pemotongan",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "statusPenyimpanan",
+				"name": "_nama",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
+				"name": "_statusKehalalan",
 				"type": "string"
 			}
 		],
-		"name": "setDataPenyimpanan",
+		"name": "setDataProdukRPH",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "DistributorBatch",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "RPHBatchID",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "durasi_penyimpanan",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "cara_penyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "status_penyimpanan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "HotelBatch",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "DistributorBatchID",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "tanggal_pengolahan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "cara_pengolahan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "RPHBatch",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "jenis_kelamin",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "tanggal_pemotongan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "status_pemotongan",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "verifier",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "sertifHalal",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	}
 ]
-export const contractAddress = '0xA2a5b78E483f244D0ba5663f56ba76712aA0793d';
+export const contractAddress = '0x316267dB07C5ffCAbeC4724Aa1104DeabfCdC21b';
 export const privateKey = "a61642fd40b7b9450ca16ca141a3dfc695fcaa3e32550297addb5e1741f7f08a"
