@@ -2,8 +2,9 @@ import type { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
-import { useUserContext } from '../UserContext';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type LoginPageContainerProps = {};
 
@@ -28,12 +29,14 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
                 userInfo
             );
             setLocalStorage(result.data.token);
-            setTimeout(() => {
-                setIsLoading(false);
-                router.push('/');
-            }, 1000);
+            setIsLoading(false);
+            router.push('/');
         } catch (error) {
-            console.log(error);
+            if (error instanceof AxiosError) {
+                toast.error(error.response?.data.message);
+                console.log(error);
+            }
+            setIsLoading(false);
         }
     };
     return (
@@ -103,6 +106,18 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
                     )}
                 </button>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                style={{ width: '350px' }}
+            />
         </div>
     );
 };
