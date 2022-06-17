@@ -132,7 +132,7 @@ export function useTraceProdukDistributor(req: TraceRequest) {
                 ID_Distributor: item.args?.ID_Distributor,
                 ID_ProdukRPH: item.args?.ID_ProdukRPH,
                 nama: item.args?.nama,
-                durasi_penyimpanan: item.args?.durasi_penyimpanan,
+                durasi_penyimpanan: item.args?.durasi_penyimpanan.toNumber(),
                 cara_penyimpanan: item.args?.cara_penyimpanan,
                 status_kehalalan: item.args?.status_kehalalan,
                 date: formattedDate,

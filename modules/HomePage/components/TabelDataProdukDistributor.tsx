@@ -34,7 +34,7 @@ const TabelDataProdukDistributor: FunctionComponent<
         },
         {
             name: 'durasi_penyimpanan',
-            label: 'Durasi Penyimpanan',
+            label: 'Durasi Penyimpanan (Hari)',
         },
         {
             name: 'cara_penyimpanan',
