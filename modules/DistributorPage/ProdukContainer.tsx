@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 type ProdukContainerProps = {};
 
 interface IDataProduk {
+    _ID_ProdukRPH: string;
     _nama: string;
     _durasiPenyimpanan: number;
     _caraPenyimpanan: number;
@@ -36,6 +37,7 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
         try {
             const tx = await ContractInstance.setDataProdukDistributor(
                 username,
+                data._ID_ProdukRPH,
                 data._nama,
                 data._durasiPenyimpanan,
                 data._caraPenyimpanan,
@@ -63,6 +65,14 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
                 <p className="text-3xl font-bold">
                     Tambah Data Produk Distributor
                 </p>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label>ID Produk RPH</label>
+                    <input
+                        type="text"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        {...register('_ID_ProdukRPH', { required: true })}
+                    />
+                </div>
                 <div className="flex flex-col space-y-1 w-full">
                     <label>Nama Produk</label>
                     <input

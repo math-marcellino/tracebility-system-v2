@@ -45,12 +45,14 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                 )}
                 {role === 'Distributor' && (
                     <Link href="/distributor/tambah-produk">
-                        <a className="text-base">Tambah Data Penyimpanan</a>
+                        <a className="text-base">
+                            Tambah Data Produk Distributor
+                        </a>
                     </Link>
                 )}
                 {role === 'Hotel' && (
                     <Link href="/hotel/tambah-makanan">
-                        <a className="text-base">Tambah Data Pengolahan</a>
+                        <a className="text-base">Tambah Data Makanan</a>
                     </Link>
                 )}
             </div>

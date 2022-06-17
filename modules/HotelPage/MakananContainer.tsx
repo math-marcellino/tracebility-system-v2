@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 type MakananContainerProps = {};
 
 interface IDataMakanan {
+    _ID_ProdukDistributor: string;
     _nama: string;
     _tanggalPengolahan: string;
     _caraPengolahan: string;
@@ -36,6 +37,7 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
         try {
             const tx = await ContractInstance.setDataMakanan(
                 username,
+                data._ID_ProdukDistributor,
                 data._nama,
                 data._tanggalPengolahan,
                 data._caraPengolahan,
@@ -61,6 +63,14 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
                 className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]"
             >
                 <p className="text-3xl font-bold">Tambah Data Makanan</p>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label>ID Produk Distributor</label>
+                    <input
+                        type="text"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        {...register('_ID_ProdukDistributor', { required: true })}
+                    />
+                </div>
                 <div className="flex flex-col space-y-1 w-full">
                     <label>Nama Makanan</label>
                     <input
