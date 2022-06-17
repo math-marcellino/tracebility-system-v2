@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { useProvider } from 'wagmi';
-import { useTracePemotongan } from '../../../swr/useTracePemotongan';
+import { useTracePemotongan } from '../../../swr/useTrace';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 
 type TabelDataPemotonganProps = {};

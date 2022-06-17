@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { useProvider } from 'wagmi';
-import { useTraceProdukDistributor } from '../../../swr/useTraceProdukDistributor';
+import { useTraceProdukDistributor } from '../../../swr/useTrace';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 
 type TabelDataProdukDistributorProps = {};

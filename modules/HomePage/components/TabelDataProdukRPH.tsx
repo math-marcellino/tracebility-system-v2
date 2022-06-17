@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { useProvider } from 'wagmi';
-import { useTraceProdukRPH } from '../../../swr/useTraceProdukRPH';
+import { useTraceProdukRPH } from '../../../swr/useTrace';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 
 type TabelDataProdukRPHProps = {};
