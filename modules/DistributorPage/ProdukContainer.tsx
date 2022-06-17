@@ -1,28 +1,27 @@
 import type { FunctionComponent } from 'react';
 import { useState } from 'react';
 import { useProvider, etherscanBlockExplorers } from 'wagmi';
-import { useUserContext } from '../UserContext';
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
+import { useUserContext } from '../UserContext';
 import { ToastContainer, toast } from 'react-toastify';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 
-type PemotonganContainerProps = {};
+type ProdukContainerProps = {};
 
-interface IDataPemotongan {
-    _jenisKelamin: string;
-    _tanggalPemotongan: string;
+interface IDataProduk {
+    _nama: string;
+    _durasiPenyimpanan: number;
+    _caraPenyimpanan: number;
     _statusKehalalan: string;
 }
 
-const PemotonganContainer: FunctionComponent<
-    PemotonganContainerProps
-> = ({}) => {
+const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [txHash, setTxHash] = useState('');
     const { username } = useUserContext();
-    const { register, handleSubmit } = useForm<IDataPemotongan>();
+    const { register, handleSubmit } = useForm<IDataProduk>();
 
     const provider = useProvider();
     const walletSigner = new ethers.Wallet(privateKey, provider);
@@ -32,16 +31,15 @@ const PemotonganContainer: FunctionComponent<
         walletSigner
     );
 
-    console.log(etherscanBlockExplorers.polygonMumbai);
-
-    const sendTransaction: SubmitHandler<IDataPemotongan> = async (data) => {
+    const sendTransaction: SubmitHandler<IDataProduk> = async (data) => {
         setIsLoading(true);
         try {
-            const tx = await ContractInstance.setDataPemotongan(
+            const tx = await ContractInstance.setDataProdukDistributor(
                 username,
-                data._jenisKelamin,
-                data._tanggalPemotongan,
-                data._tanggalPemotongan
+                data._nama,
+                data._durasiPenyimpanan,
+                data._caraPenyimpanan,
+                data._statusKehalalan
             );
             setTxHash(tx.hash);
             console.log(tx);
@@ -62,26 +60,31 @@ const PemotonganContainer: FunctionComponent<
                 onSubmit={handleSubmit(sendTransaction)}
                 className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]"
             >
-                <p className="text-3xl font-bold">Tambah Data Pemotongan</p>
+                <p className="text-3xl font-bold">
+                    Tambah Data Produk Distributor
+                </p>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label>Jenis Kelamin</label>
-                    <select
-                        className="text-gray-900 rounded-md px-2 py-2"
-                        {...register('_jenisKelamin', { required: true })}
-                    >
-                        <option value="Jantan">Jantan</option>
-                        <option value="Betina">Betina</option>
-                    </select>
+                    <label>Nama Produk</label>
+                    <input
+                        type="text"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        {...register('_nama', { required: true })}
+                    />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label>
-                        Tanggal Pemotongan
-                    </label>
+                    <label>Durasi Penyimpanan (Hari)</label>
                     <input
-                        type="date"
-                        max={new Date().toLocaleDateString('en-ca')}
+                        type="number"
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        {...register('_tanggalPemotongan', { required: true })}
+                        {...register('_durasiPenyimpanan', { required: true })}
+                    />
+                </div>
+                <div className="flex flex-col space-y-1 w-full">
+                    <label>Cara Penyimpanan</label>
+                    <input
+                        type="text"
+                        className="text-gray-900 rounded-md px-2 py-1.5"
+                        {...register('_caraPenyimpanan', { required: true })}
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
@@ -155,4 +158,4 @@ const PemotonganContainer: FunctionComponent<
     );
 };
 
-export default PemotonganContainer;
+export default ProdukContainer;

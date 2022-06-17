@@ -57,7 +57,7 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
             >
                 <p className="text-3xl font-bold">Tambah Data Produk RPH</p>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="a">ID Pemotongan</label>
+                    <label>ID Pemotongan</label>
                     <input
                         type="text"
                         className="text-gray-900 rounded-md px-2 py-1.5"
@@ -65,7 +65,7 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="tanggalPemotongan">Nama Produk</label>
+                    <label>Nama Produk</label>
                     <input
                         type="text"
                         className="text-gray-900 rounded-md px-2 py-1.5"
@@ -73,7 +73,7 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="statusKehalalan">Status Kehalalan</label>
+                    <label>Status Kehalalan</label>
                     <select
                         className="text-gray-900 rounded-md px-2 py-2"
                         {...register('_statusKehalalan', { required: true })}

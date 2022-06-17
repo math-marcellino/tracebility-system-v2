@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import PageMetadata from '../../uikit/PageMetadata';
 import Navigation from '../../uikit/Navigation';
-import DistributorpageContainer from '../../modules/DistributorPage/DistributorPageContainer';
+import DistributorpageContainer from '../../modules/DistributorPage/ProdukContainer';
 import { useUserContext } from '../../modules/UserContext';
 import NoAccessPage from '../../uikit/NoAccessPage';
 
