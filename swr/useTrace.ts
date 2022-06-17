@@ -5,6 +5,7 @@ import {
     TracePemotonganResult,
     TraceProdukRPHResult,
     TraceProdukDistributorResult,
+    TraceMakananResult,
 } from './types';
 import { jsonABI, contractAddress } from '../ABI/contractABI';
 
@@ -25,6 +26,9 @@ const TraceFetcher = (args: TraceRequest): Promise<Array<Event>> => {
             break;
         case 'produkDistributor':
             filter = traceabilityContract.filters.TraceProdukDistributor();
+            break;
+        case 'makanan':
+            filter = traceabilityContract.filters.TraceMakanan();
             break;
     }
     const data = traceabilityContract.queryFilter(filter);
@@ -134,6 +138,46 @@ export function useTraceProdukDistributor(req: TraceRequest) {
                 nama: item.args?.nama,
                 durasi_penyimpanan: item.args?.durasi_penyimpanan.toNumber(),
                 cara_penyimpanan: item.args?.cara_penyimpanan,
+                status_kehalalan: item.args?.status_kehalalan,
+                date: formattedDate,
+            };
+            return event;
+        });
+
+    return {
+        data: result,
+        isLoading: !data && !error,
+        error: error,
+    };
+}
+
+export function useTraceMakanan(req: TraceRequest) {
+    const { data, error } = useSWR<Array<Event>, Error>(
+        {
+            provider: req.provider,
+            type: 'makanan',
+        },
+        TraceFetcher
+    );
+
+    const result: Array<TraceMakananResult> =
+        data! &&
+        data?.map((item) => {
+            const date = new Date(item.args?.date.toNumber() * 1000);
+            const formattedDate = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric',
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                minute: 'numeric',
+            }).format(date);
+            const event: TraceMakananResult = {
+                ID_Makanan: item.args?.ID_Makanan,
+                ID_Hotel: item.args?.ID_Hotel,
+                ID_ProdukDistributor: item.args?.ID_ProdukDistributor,
+                nama: item.args?.nama,
+                tanggal_pengolahan: item.args?.tanggal_pengolahan,
+                cara_pengolahan: item.args?.cara_pengolahan,
                 status_kehalalan: item.args?.status_kehalalan,
                 date: formattedDate,
             };

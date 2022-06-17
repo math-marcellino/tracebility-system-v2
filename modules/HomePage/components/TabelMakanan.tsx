@@ -1,44 +1,42 @@
 import type { FunctionComponent } from 'react';
 import { useProvider } from 'wagmi';
-import { useTraceProdukDistributor } from '../../../swr/useTrace';
+import { useTraceMakanan } from '../../../swr/useTrace';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 
-type TabelDataProdukDistributorProps = {};
+type TabelMakananProps = {};
 
-const TabelDataProdukDistributor: FunctionComponent<
-    TabelDataProdukDistributorProps
-> = ({}) => {
+const TabelMakanan: FunctionComponent<TabelMakananProps> = ({}) => {
     const provider = useProvider();
-    const dataProdukDistributor = useTraceProdukDistributor({ provider });
+    const dataMakanan = useTraceMakanan({ provider });
 
     const columnsDistributor: MUIDataTableColumn[] = [
         {
-            name: 'ID_ProdukDistributor',
-            label: 'ID Produk Distributor',
+            name: 'ID_Makanan',
+            label: 'ID Makanan',
         },
         {
             name: 'nama',
-            label: 'Nama Produk Distributor',
+            label: 'Nama Produk RPH',
         },
         {
             name: 'date',
             label: 'Date',
         },
         {
-            name: 'ID_Distributor',
-            label: 'ID Distributor',
+            name: 'ID_Hotel',
+            label: 'ID Hotel',
         },
         {
-            name: 'ID_ProdukRPH',
-            label: 'ID Produk RPH',
+            name: 'ID_ProdukDistributor',
+            label: 'ID Produk Distributor',
         },
         {
-            name: 'durasi_penyimpanan',
-            label: 'Durasi Penyimpanan (Hari)',
+            name: 'tanggal_pengolahan',
+            label: 'Tangan Pengolahan',
         },
         {
-            name: 'cara_penyimpanan',
-            label: 'Cara Penyimpanan',
+            name: 'cara_pengolahan',
+            label: 'Cara Pengolahan',
         },
         {
             name: 'status_kehalalan',
@@ -49,16 +47,16 @@ const TabelDataProdukDistributor: FunctionComponent<
     return (
         <div className="flex flex-col px-16">
             <MUIDataTable
-                title="Data Produk Distributor"
+                title="Data Makanan"
                 columns={columnsDistributor}
-                data={dataProdukDistributor.data}
+                data={dataMakanan.data}
                 options={{
                     rowsPerPage: 10,
                     selectableRows: 'none',
                     elevation: 1,
                     textLabels: {
                         body: {
-                            noMatch: dataProdukDistributor.isLoading ? (
+                            noMatch: dataMakanan.isLoading ? (
                                 <p className="animate-pulse text-xl">
                                     Loading data...
                                 </p>
@@ -73,4 +71,4 @@ const TabelDataProdukDistributor: FunctionComponent<
     );
 };
 
-export default TabelDataProdukDistributor;
+export default TabelMakanan;

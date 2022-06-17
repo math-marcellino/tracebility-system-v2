@@ -32,3 +32,14 @@ export type TraceProdukDistributorResult = {
     status_kehalalan: string;
     date: string;
 };
+
+export type TraceMakananResult = {
+    ID_Makanan: string;
+    ID_Hotel: string;
+    ID_ProdukDistributor: string;
+    nama: string;
+    tanggal_pengolahan: string;
+    cara_pengolahan: string;
+    status_kehalalan: string;
+    date: string;
+};
