@@ -18,4 +18,14 @@ module.exports = function(app){
     '/api/user/acc/signIn',
     user.signIn
   )
+
+  app.get(
+    '/api/user/getUsers',
+    user.getUsers
+  )
+
+  app.get(
+    '/api/user/getSpecific/:username',
+    user.getSpecificUser
+  )
 }
