@@ -2,17 +2,6 @@ const roleDB = require('../models/role.model')
 const userDB = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const {ethers} = require('ethers')
-const {jsonABI, contractAddress, privateKey} = require('../../ABI/contractABI')
-const mumbaiProvider = new ethers.providers.JsonRpcProvider(
-  'https://speedy-nodes-nyc.moralis.io/0f6aa643f70545beebc8e4f9/polygon/mumbai', 80001
-)
-const walletSigner = new ethers.Wallet(privateKey, mumbaiProvider)
-const useContract = new ethers.Contract(
-  contractAddress,
-  jsonABI,
-  walletSigner
-)
 
 exports.signUp = async (req, res) => {
   const{
@@ -33,17 +22,6 @@ exports.signUp = async (req, res) => {
       password: fixPassword,
       sertifikatHalal
     })
-
-    const roleName = await roleDB.query().where({id: role})
-
-    const tx = await useContract.register(
-      roleName[0].role,
-      nama_lengkap,
-      username,
-      sertifikatHalal
-    );
-    console.log(tx);
-    await tx.wait();
 
     return res.status(200).send({
       message: "Berhasil Mendaftar",
@@ -93,3 +71,28 @@ exports.signIn = async (req, res) => {
     })
   }
 }
+
+exports.getUsers = async (req, res)=>{
+  try{
+    const users = await userDB.query();
+    return res.status(200).send(users)
+  } catch(err) {
+    return res.status(500).send({
+      message: err.message
+    })
+  }
+}
+
+exports.getSpecificUser = async (req, res) => {
+  try{
+    const {username} = req.params
+    const user = await userDB.query().where({username})
+    return res.status(200).send(user)
+  } catch(err) {
+    return res.status(500).send({
+      message: err.message
+    })
+  }
+}
+
+
