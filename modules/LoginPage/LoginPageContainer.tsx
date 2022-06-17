@@ -2,18 +2,24 @@ import type { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import axios, { AxiosError } from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 type LoginPageContainerProps = {};
 
+interface IUserInfo {
+    username: string;
+    password: string;
+}
+
 const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
     const router = useRouter();
-    const [userInfo, setUserInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [, setLocalStorage] = useLocalStorage('token', '');
     const jwt = useReadLocalStorage('token');
+    const { register, handleSubmit } = useForm<IUserInfo>();
 
     useEffect(() => {
         if (jwt) {
@@ -21,12 +27,16 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
         }
     }, []);
 
-    const handleLogin = async () => {
+    const handleLogin: SubmitHandler<IUserInfo> = async (data) => {
         setIsLoading(true);
+        console.log(data);
         try {
             const result = await axios.post(
                 'https://tracebility-project.herokuapp.com/api/user/acc/signIn',
-                userInfo
+                {
+                    username: data.username,
+                    password: data.password,
+                }
             );
             setLocalStorage(result.data.token);
             setIsLoading(false);
@@ -41,7 +51,10 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
     };
     return (
         <div className="flex h-screen w-screen items-center justify-center">
-            <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
+            <form
+                onSubmit={handleSubmit(handleLogin)}
+                className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]"
+            >
                 <p className="text-3xl underline font-bold">
                     Stakeholder Login
                 </p>
@@ -49,32 +62,21 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
                     <label htmlFor="username">Username</label>
                     <input
                         type="text"
-                        name="username"
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setUserInfo({
-                                ...userInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
+                        {...register('username', { required: true })}
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
-                        name="password"
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setUserInfo({
-                                ...userInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
+                        {...register('password', { required: true })}
                     />
                 </div>
                 <button
-                    onClick={handleLogin}
+                    type="submit"
+                    disabled={isLoading}
                     className="bg-gray-900 hover:bg-gray-800 active:scale-90 transition ease-in-out w-full p-2.5 rounded-xl"
                 >
                     {isLoading ? (
@@ -105,7 +107,7 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
                         <p>Login</p>
                     )}
                 </button>
-            </div>
+            </form>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
