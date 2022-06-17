@@ -1,4 +1,5 @@
 import type { FunctionComponent } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useUserContext } from '../modules/UserContext';
 import { useReadLocalStorage, useLocalStorage } from 'usehooks-ts';
@@ -8,6 +9,7 @@ import { Menu } from '@headlessui/react';
 type NavigationProps = {};
 
 const Navigation: FunctionComponent<NavigationProps> = ({}) => {
+    const router = useRouter();
     const { namaLengkap, role, deleteUserData } = useUserContext();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [, deleteToken] = useLocalStorage('token', '');
@@ -42,7 +44,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                     </>
                 )}
                 {role === 'Distributor' && (
-                    <Link href="/distributor-page">
+                    <Link href="/distributor/tambah-produk">
                         <a className="text-base">Tambah Data Penyimpanan</a>
                     </Link>
                 )}
@@ -77,6 +79,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                                     onClick={() => {
                                         deleteToken('');
                                         deleteUserData();
+                                        router.push('/');
                                     }}
                                     className="flex gap-2"
                                 >
