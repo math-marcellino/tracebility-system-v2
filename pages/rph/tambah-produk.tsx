@@ -12,7 +12,7 @@ const TambahDataProduk: NextPage = () => {
             {role === 'RPH' ? (
                 <>
                     <Navigation />
-                    <PageMetadata page="Tambah Data Pemotongan" />
+                    <PageMetadata page="Tambah Data Produk RPH" />
                     <ProdukContainer />
                 </>
             ) : (

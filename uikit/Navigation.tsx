@@ -49,7 +49,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({}) => {
                     </Link>
                 )}
                 {role === 'Hotel' && (
-                    <Link href="/hotel-page">
+                    <Link href="/hotel/tambah-makanan">
                         <a className="text-base">Tambah Data Pengolahan</a>
                     </Link>
                 )}

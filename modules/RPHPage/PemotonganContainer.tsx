@@ -32,8 +32,6 @@ const PemotonganContainer: FunctionComponent<
         walletSigner
     );
 
-    console.log(etherscanBlockExplorers.polygonMumbai);
-
     const sendTransaction: SubmitHandler<IDataPemotongan> = async (data) => {
         setIsLoading(true);
         try {

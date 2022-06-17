@@ -1,19 +1,19 @@
 import type { NextPage } from 'next';
 import PageMetadata from '../../uikit/PageMetadata';
 import Navigation from '../../uikit/Navigation';
-import HotelPageContainer from '../../modules/HotelPage/HotelPageContainer';
+import MakananContainer from '../../modules/HotelPage/MakananContainer';
 import { useUserContext } from '../../modules/UserContext';
 import NoAccessPage from '../../uikit/NoAccessPage';
 
-const HotelPage: NextPage = () => {
+const TambahMakanan: NextPage = () => {
     const { role } = useUserContext();
     return (
         <>
             {role === 'Hotel' ? (
                 <>
                     <Navigation />
-                    <PageMetadata page="Hotel Page" />
-                    <HotelPageContainer />
+                    <PageMetadata page="Tambah Data Makanan" />
+                    <MakananContainer />
                 </>
             ) : (
                 <NoAccessPage />
@@ -22,4 +22,4 @@ const HotelPage: NextPage = () => {
     );
 };
 
-export default HotelPage;
+export default TambahMakanan;

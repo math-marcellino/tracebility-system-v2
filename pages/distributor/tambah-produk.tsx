@@ -12,7 +12,7 @@ const DistributorPage: NextPage = () => {
             {role === 'Distributor' ? (
                 <>
                     <Navigation />
-                    <PageMetadata page="Distributor Page" />
+                    <PageMetadata page="Tambah Data Produk Distributor" />
                     <ProdukContainer />
                 </>
             ) : (

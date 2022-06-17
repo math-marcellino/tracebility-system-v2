@@ -1,43 +1,47 @@
 import type { FunctionComponent } from 'react';
 import { useState } from 'react';
+import { useProvider, etherscanBlockExplorers } from 'wagmi';
 import { useUserContext } from '../UserContext';
-import { useProvider } from 'wagmi';
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 
-type HotelPageContainerProps = {};
+type MakananContainerProps = {};
 
-const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
-    const [hotelInfo, setHotelInfo] = useState({});
+interface IDataMakanan {
+    _nama: string;
+    _tanggalPengolahan: string;
+    _caraPengolahan: string;
+    _statusKehalalan: string;
+}
+
+const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
     const [isLoading, setIsLoading] = useState(false);
-    const { namaLengkap } = useUserContext();
+    const [txHash, setTxHash] = useState('');
+    const { username } = useUserContext();
+    const { register, handleSubmit } = useForm<IDataMakanan>();
 
     const provider = useProvider();
     const walletSigner = new ethers.Wallet(privateKey, provider);
-    const useContract = new ethers.Contract(
+    const ContractInstance = new ethers.Contract(
         contractAddress,
         jsonABI,
         walletSigner
     );
 
-    const handleInput = async () => {
+    const sendTransaction: SubmitHandler<IDataMakanan> = async (data) => {
         setIsLoading(true);
         try {
-            const {
-                DistributorBatchID,
-                tanggalPengolahan,
-                caraPengolahan,
-                sertifHalal,
-            }: any = hotelInfo;
-            const tx = await useContract.setDataPengolahan(
-                DistributorBatchID,
-                tanggalPengolahan,
-                caraPengolahan,
-                sertifHalal,
-                namaLengkap
+            const tx = await ContractInstance.setDataMakanan(
+                username,
+                data._nama,
+                data._tanggalPengolahan,
+                data._caraPengolahan,
+                data._statusKehalalan
             );
+            setTxHash(tx.hash);
             console.log(tx);
             await tx.wait();
             setIsLoading(false);
@@ -45,77 +49,57 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
         } catch (err) {
             setIsLoading(false);
             console.log(err);
-            toast.error(`${err}`);
+            toast.error(
+                'Transaction failed, please check the console in your browser!'
+            );
         }
     };
     return (
         <div className="flex h-screen items-center justify-center">
-            <div className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]">
-                <p className="text-3xl font-bold">Input Data Pengolahan</p>
+            <form
+                onSubmit={handleSubmit(sendTransaction)}
+                className="bg-gray-700 flex flex-col items-center justify-center px-8 py-6 rounded-xl shadow-xl text-lg gap-6 min-w-[450px]"
+            >
+                <p className="text-3xl font-bold">Tambah Data Makanan</p>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="DistributorBatchID">
-                        Distributor Batch ID
-                    </label>
+                    <label>Nama Makanan</label>
                     <input
                         type="text"
-                        name="DistributorBatchID"
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                        placeholder="Distributor Batch ID"
+                        {...register('_nama', { required: true })}
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="tanggalPengolahan">
-                        Tanggal Pengolahan
-                    </label>
+                    <label>Tanggal Pengolahan</label>
                     <input
                         type="date"
-                        name="tanggalPengolahan"
+                        max={new Date().toLocaleDateString('en-ca')}
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
+                        {...register('_tanggalPengolahan', { required: true })}
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="caraPengolahan">Cara Pengolahan</label>
+                    <label>Cara Pengolahan</label>
                     <input
                         type="text"
-                        name="caraPengolahan"
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
+                        {...register('_caraPengolahan', { required: true })}
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label htmlFor="sertifHalal">Sertifikat Halal</label>
-                    <input
-                        type="text"
-                        name="sertifHalal"
-                        className="text-gray-900 rounded-md px-2 py-1.5"
-                        onChange={(e) =>
-                            setHotelInfo({
-                                ...hotelInfo,
-                                [e.target.name]: e.target.value,
-                            })
-                        }
-                    />
+                    <label>Status Kehalalan</label>
+                    <select
+                        className="text-gray-900 rounded-md px-2 py-2"
+                        {...register('_statusKehalalan', { required: true })}
+                    >
+                        <option value="Halal">Halal</option>
+                        <option value="Tidak Halal">Tidak Halal</option>
+                    </select>
                 </div>
                 <button
-                    onClick={handleInput}
+                    type="submit"
                     className="bg-gray-900 hover:bg-gray-800 active:scale-90 transition ease-in-out w-full p-2.5 rounded-xl"
+                    disabled={isLoading}
                 >
                     {isLoading ? (
                         <p className="flex items-center justify-center">
@@ -145,7 +129,18 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
                         <p>Submit</p>
                     )}
                 </button>
-            </div>
+                {txHash && (
+                    <span>
+                        You can check the transaction{' '}
+                        <a
+                            href={`${etherscanBlockExplorers.polygonMumbai.url}/tx/${txHash}`}
+                            className="underline text-blue-500"
+                        >
+                            here
+                        </a>
+                    </span>
+                )}
+            </form>
             <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -162,4 +157,4 @@ const HotelPageContainer: FunctionComponent<HotelPageContainerProps> = ({}) => {
     );
 };
 
-export default HotelPageContainer;
+export default MakananContainer;
