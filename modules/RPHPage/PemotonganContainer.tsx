@@ -39,7 +39,7 @@ const PemotonganContainer: FunctionComponent<
                 username,
                 data._jenisKelamin,
                 data._tanggalPemotongan,
-                data._tanggalPemotongan
+                data._statusKehalalan
             );
             setTxHash(tx.hash);
             console.log(tx);
@@ -72,9 +72,7 @@ const PemotonganContainer: FunctionComponent<
                     </select>
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
-                    <label>
-                        Tanggal Pemotongan
-                    </label>
+                    <label>Tanggal Pemotongan</label>
                     <input
                         type="date"
                         max={new Date().toLocaleDateString('en-ca')}

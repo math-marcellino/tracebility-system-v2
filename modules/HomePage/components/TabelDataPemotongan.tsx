@@ -17,7 +17,7 @@ const TabelDataPemotongan: FunctionComponent<
             label: 'ID Pemotongan',
         },
         {
-            name: 'timestamp',
+            name: 'date',
             label: 'Date',
         },
         {
