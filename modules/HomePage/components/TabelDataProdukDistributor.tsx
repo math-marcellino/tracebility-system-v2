@@ -1,30 +1,44 @@
 import type { FunctionComponent } from 'react';
 import { useProvider } from 'wagmi';
-import { useTraceProdukRPH } from '../../../swr/useTraceProdukRPH';
+import { useTraceProdukDistributor } from '../../../swr/useTraceProdukDistributor';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 
-type TabelDataProdukRPHProps = {};
+type TabelDataProdukDistributorProps = {};
 
-const TabelDataProdukRPH: FunctionComponent<TabelDataProdukRPHProps> = ({}) => {
+const TabelDataProdukDistributor: FunctionComponent<
+    TabelDataProdukDistributorProps
+> = ({}) => {
     const provider = useProvider();
-    const dataProdukRPH = useTraceProdukRPH({ provider });
+    const dataProdukDistributor = useTraceProdukDistributor({ provider });
 
     const columnsDistributor: MUIDataTableColumn[] = [
         {
-            name: 'ID_ProdukRPH',
-            label: 'ID Produk RPH',
+            name: 'ID_ProdukDistributor',
+            label: 'ID Produk Distributor',
         },
         {
             name: 'nama',
-            label: 'Nama Produk RPH',
+            label: 'Nama Produk Distributor',
         },
         {
             name: 'date',
             label: 'Date',
         },
         {
-            name: 'ID_Pemotongan',
-            label: 'ID Pemotongan',
+            name: 'ID_Distributor',
+            label: 'ID Distributor',
+        },
+        {
+            name: 'ID_ProdukRPH',
+            label: 'ID Produk RPH',
+        },
+        {
+            name: 'durasi_penyimpanan',
+            label: 'Durasi Penyimpanan',
+        },
+        {
+            name: 'cara_penyimpanan',
+            label: 'Cara Penyimpanan',
         },
         {
             name: 'status_kehalalan',
@@ -37,14 +51,14 @@ const TabelDataProdukRPH: FunctionComponent<TabelDataProdukRPHProps> = ({}) => {
             <MUIDataTable
                 title="Data Produk RPH"
                 columns={columnsDistributor}
-                data={dataProdukRPH.data}
+                data={dataProdukDistributor.data}
                 options={{
                     rowsPerPage: 10,
                     selectableRows: 'none',
                     elevation: 1,
                     textLabels: {
                         body: {
-                            noMatch: dataProdukRPH.isLoading ? (
+                            noMatch: dataProdukDistributor.isLoading ? (
                                 <p className="animate-pulse text-xl">
                                     Loading data...
                                 </p>
@@ -59,4 +73,4 @@ const TabelDataProdukRPH: FunctionComponent<TabelDataProdukRPHProps> = ({}) => {
     );
 };
 
-export default TabelDataProdukRPH;
+export default TabelDataProdukDistributor;

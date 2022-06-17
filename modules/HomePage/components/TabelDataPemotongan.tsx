@@ -9,7 +9,7 @@ const TabelDataPemotongan: FunctionComponent<
     TabelDataPemotonganProps
 > = ({}) => {
     const provider = useProvider();
-    const events = useTracePemotongan({ provider });
+    const dataPemotongan = useTracePemotongan({ provider });
 
     const columnsDistributor: MUIDataTableColumn[] = [
         {
@@ -43,14 +43,14 @@ const TabelDataPemotongan: FunctionComponent<
             <MUIDataTable
                 title="Data Pemotongan"
                 columns={columnsDistributor}
-                data={events.data}
+                data={dataPemotongan.data}
                 options={{
                     rowsPerPage: 10,
                     selectableRows: 'none',
                     elevation: 1,
                     textLabels: {
                         body: {
-                            noMatch: events.isLoading ? (
+                            noMatch: dataPemotongan.isLoading ? (
                                 <p className="animate-pulse text-xl">
                                     Loading data...
                                 </p>
