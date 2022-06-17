@@ -16,13 +16,6 @@ contract TraceabilityV2{
     _;
   }
 
-  // Data Structures
-  struct User{
-    string nama;
-    string sertifikatHalal;
-    string role;
-  }
-
   struct Pemotongan{
     string ID_RPH;
     string jenis_kelamin;
@@ -38,6 +31,7 @@ contract TraceabilityV2{
 
   struct ProdukDistributor{
     string ID_Distributor;
+    string ID_ProdukRPH;
     string nama;
     uint256 durasi_penyimpanan;
     string cara_penyimpanan;
@@ -46,6 +40,7 @@ contract TraceabilityV2{
 
   struct Makanan{
     string ID_Hotel;
+    string ID_ProdukDistributor;
     string nama;
     string tanggal_pengolahan;
     string cara_pengolahan;
@@ -53,7 +48,7 @@ contract TraceabilityV2{
   }
 
   // Mappings 
-  mapping(string => User) public Users;
+  // mapping(string => User) public Users;
   mapping(string => Pemotongan) public PemotonganBatch;
   mapping(string => ProdukRPH) public ProdukRPHBatch;
   mapping(string => ProdukDistributor) public ProdukDistributorBatch;
@@ -80,6 +75,7 @@ contract TraceabilityV2{
   event TraceProdukDistributor(
     string ID_ProdukDistributor,
     string ID_Distributor,
+    string ID_ProdukRPH,
     string nama,
     uint256 durasi_penyimpanan,
     string cara_penyimpanan,
@@ -90,6 +86,7 @@ contract TraceabilityV2{
   event TraceMakanan(
     string ID_Makanan,
     string ID_Hotel,
+    string ID_ProdukDistributor,
     string nama,
     string tanggal_pengolahan,
     string cara_pengolahan,
@@ -102,18 +99,6 @@ contract TraceabilityV2{
   uint index_produkRPH;
   uint index_produkDistributor;
   uint index_makanan;
-
-  // Functions
-  function register(
-    string memory _role,
-    string memory _nama,
-    string memory _username,
-    string memory _sertifikatHalal
-  ) public {
-    Users[_username].nama = _nama;
-    Users[_username].role = _role;
-    Users[_username].sertifikatHalal = _sertifikatHalal;
-  }
 
   function setDataPemotongan(
     string memory _ID_RPH,
@@ -160,6 +145,7 @@ contract TraceabilityV2{
 
   function setDataProdukDistributor(
     string memory _ID_Distributor,
+    string memory _ID_ProdukRPH,
     string memory _nama,
     uint256 _durasiPenyimpanan,
     string memory _caraPenyimpanan,
@@ -168,6 +154,7 @@ contract TraceabilityV2{
     index_produkDistributor++;
     string memory ID = string.concat("PDIS", Strings.toString(index_produkDistributor));
     ProdukDistributorBatch[ID].ID_Distributor = _ID_Distributor;
+    ProdukDistributorBatch[ID].ID_ProdukRPH = _ID_ProdukRPH;
     ProdukDistributorBatch[ID].nama = _nama;
     ProdukDistributorBatch[ID].durasi_penyimpanan = _durasiPenyimpanan;
     ProdukDistributorBatch[ID].cara_penyimpanan = _caraPenyimpanan;
@@ -176,6 +163,7 @@ contract TraceabilityV2{
     emit TraceProdukDistributor(
       ID,
       _ID_Distributor,
+      _ID_ProdukRPH,
       _nama,
       _durasiPenyimpanan,
       _caraPenyimpanan,
@@ -186,6 +174,7 @@ contract TraceabilityV2{
 
   function setDataMakanan(
     string memory _ID_Hotel,
+    string memory _ID_ProdukDistributor,
     string memory _nama,
     string memory _tanggalPengolahan,
     string memory _caraPengolahan,
@@ -194,6 +183,7 @@ contract TraceabilityV2{
     index_makanan++;
     string memory ID = string.concat("PMKN", Strings.toString(index_makanan));
     MakananBatch[ID].ID_Hotel = _ID_Hotel;
+    MakananBatch[ID].ID_ProdukDistributor = _ID_ProdukDistributor;
     MakananBatch[ID].nama = _nama;
     MakananBatch[ID].tanggal_pengolahan = _tanggalPengolahan;
     MakananBatch[ID].cara_pengolahan = _caraPengolahan;
@@ -202,6 +192,7 @@ contract TraceabilityV2{
     emit TraceMakanan(
       ID,
       _ID_Hotel,
+      _ID_ProdukDistributor,
       _nama,
       _tanggalPengolahan,
       _caraPengolahan,
