@@ -74,7 +74,13 @@ exports.signIn = async (req, res) => {
 
 exports.getUsers = async (req, res)=>{
   try{
-    const users = await userDB.query();
+    const users = await userDB.query()
+      .join('role', 'role.id', 'users.role')
+      .select('users.username')
+      .select('users.nama_lengkap')
+      .select('users.password')
+      .select('users.sertifikatHalal')
+      .select('role.role')
     return res.status(200).send(users)
   } catch(err) {
     return res.status(500).send({
@@ -86,7 +92,14 @@ exports.getUsers = async (req, res)=>{
 exports.getSpecificUser = async (req, res) => {
   try{
     const {username} = req.params
-    const user = await userDB.query().where({username})
+    const user = await userDB.query()
+    .join('role', 'role.id', 'users.role')
+    .select('users.username')
+    .select('users.nama_lengkap')
+    .select('users.password')
+    .select('users.sertifikatHalal')
+    .select('role.role')
+    .where({username})
     return res.status(200).send(user)
   } catch(err) {
     return res.status(500).send({
