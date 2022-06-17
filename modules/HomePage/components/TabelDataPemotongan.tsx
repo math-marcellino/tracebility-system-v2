@@ -1,41 +1,39 @@
 import type { FunctionComponent } from 'react';
 import { useProvider } from 'wagmi';
-import { useTraceRPH } from '../../../swr/useTraceEvents';
+import { useTracePemotongan } from '../../../swr/useTracePemotongan';
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 
-type RPHTableProps = {};
+type TabelDataPemotonganProps = {};
 
-const RPHTable: FunctionComponent<RPHTableProps> = ({}) => {
+const TabelDataPemotongan: FunctionComponent<
+    TabelDataPemotonganProps
+> = ({}) => {
     const provider = useProvider();
-    const events = useTraceRPH({ provider });
+    const events = useTracePemotongan({ provider });
 
-    const columnsRPH: MUIDataTableColumn[] = [
+    const columnsDistributor: MUIDataTableColumn[] = [
         {
-            name: 'RPHBatchID',
-            label: 'RPH Batch ID',
+            name: 'ID_Pemotongan',
+            label: 'ID Pemotongan',
         },
         {
             name: 'timestamp',
             label: 'Date',
         },
         {
-            name: 'jenisKelamin',
-            label: 'Jenis Kelamin',
+            name: 'ID_RPH',
+            label: 'ID RPH',
         },
         {
-            name: 'tanggalPemotongan',
+            name: 'jenis_kelamin',
+            label: 'Jenis Kelamin Sapi',
+        },
+        {
+            name: 'tanggal_pemotongan',
             label: 'Tanggal Pemotongan',
         },
         {
-            name: 'statusPemotongan',
-            label: 'Status Pemotongan',
-        },
-        {
-            name: 'verifier',
-            label: 'Pemverifikasi',
-        },
-        {
-            name: 'sertifikatHalal',
+            name: 'status_kehalalan',
             label: 'Status Kehalalan',
         },
     ];
@@ -43,11 +41,11 @@ const RPHTable: FunctionComponent<RPHTableProps> = ({}) => {
     return (
         <div className="flex flex-col px-16">
             <MUIDataTable
-                title=""
-                columns={columnsRPH}
+                title="Data Pemotongan"
+                columns={columnsDistributor}
                 data={events.data}
                 options={{
-                    rowsPerPage: 5,
+                    rowsPerPage: 10,
                     selectableRows: 'none',
                     elevation: 1,
                     textLabels: {
@@ -67,4 +65,4 @@ const RPHTable: FunctionComponent<RPHTableProps> = ({}) => {
     );
 };
 
-export default RPHTable;
+export default TabelDataPemotongan;

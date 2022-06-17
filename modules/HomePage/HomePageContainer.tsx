@@ -1,50 +1,66 @@
 import { FunctionComponent, useState } from 'react';
-import RPHTable from './components/RPHTable';
-import DistributorTable from './components/DistributorTable';
-import HotelTable from './components/HotelTable';
+import TabelDataPemotongan from './components/TabelDataPemotongan';
 
 type HomePageContainerProps = {};
 
+enum TipeTabel {
+    pemotongan,
+    produkRPH,
+    produkDistributor,
+    makanan,
+}
+
 const HomePageContainer: FunctionComponent<HomePageContainerProps> = ({}) => {
-    const [table, setTable] = useState('RPH');
+    const [table, setTable] = useState<TipeTabel>(TipeTabel.pemotongan);
     return (
         <div className="space-y-3">
-            <div className="px-16 space-x-4">
+            <div className="space-x-4 flex flex-row justify-center">
                 <button
-                    className={`border rounded-md w-24 py-1 ${
-                        table === 'RPH' && 'bg-white text-gray-900'
+                    className={`border rounded-md w-48 py-1 ${
+                        table === TipeTabel.pemotongan &&
+                        'bg-white text-gray-900'
                     }`}
                     onClick={() => {
-                        setTable('RPH');
+                        setTable(TipeTabel.pemotongan);
                     }}
                 >
-                    RPH
+                    Data Pemotongan
                 </button>
                 <button
-                    className={`border rounded-md w-24 py-1 ${
-                        table === 'Distributor' && 'bg-white text-gray-900'
+                    className={`border rounded-md w-48 py-1 ${
+                        table === TipeTabel.produkRPH &&
+                        'bg-white text-gray-900'
                     }`}
                     onClick={() => {
-                        setTable('Distributor');
+                        setTable(TipeTabel.produkRPH);
                     }}
                 >
-                    Distributor
+                    Data Produk RPH
                 </button>
                 <button
-                    className={`border rounded-md w-24 py-1 ${
-                        table === 'Hotel' && 'bg-white text-gray-900'
+                    className={`border rounded-md w-48 py-1 ${
+                        table === TipeTabel.produkDistributor &&
+                        'bg-white text-gray-900'
                     }`}
                     onClick={() => {
-                        setTable('Hotel');
+                        setTable(TipeTabel.produkDistributor);
                     }}
                 >
-                    Hotel
+                    Data Produk Distributor
+                </button>
+                <button
+                    className={`border rounded-md w-48 py-1 ${
+                        table === TipeTabel.makanan && 'bg-white text-gray-900'
+                    }`}
+                    onClick={() => {
+                        setTable(TipeTabel.makanan);
+                    }}
+                >
+                    Data Makanan
                 </button>
             </div>
-            <div className="">
-                {table === 'RPH' && <RPHTable />}
-                {table === 'Distributor' && <DistributorTable />}
-                {table === 'Hotel' && <HotelTable />}
+            <div>
+                {table === TipeTabel.pemotongan && <TabelDataPemotongan />}
             </div>
         </div>
     );
