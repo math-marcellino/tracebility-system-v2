@@ -146,6 +146,8 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
                         <a
                             href={`${etherscanBlockExplorers.polygonMumbai.url}/tx/${txHash}`}
                             className="underline text-blue-500"
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
                             here
                         </a>

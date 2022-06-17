@@ -68,7 +68,9 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
                     <input
                         type="text"
                         className="text-gray-900 rounded-md px-2 py-1.5"
-                        {...register('_ID_ProdukDistributor', { required: true })}
+                        {...register('_ID_ProdukDistributor', {
+                            required: true,
+                        })}
                     />
                 </div>
                 <div className="flex flex-col space-y-1 w-full">
@@ -145,6 +147,8 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
                         <a
                             href={`${etherscanBlockExplorers.polygonMumbai.url}/tx/${txHash}`}
                             className="underline text-blue-500"
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
                             here
                         </a>
