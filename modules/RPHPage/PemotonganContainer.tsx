@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { useState } from 'react';
-import { useProvider } from 'wagmi';
+import { useProvider, etherscanBlockExplorers } from 'wagmi';
 import { useUserContext } from '../UserContext';
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
@@ -20,6 +20,7 @@ const PemotonganContainer: FunctionComponent<
     PemotonganContainerProps
 > = ({}) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [txHash, setTxHash] = useState('');
     const { username } = useUserContext();
     const { register, handleSubmit } = useForm<IDataPemotongan>();
 
@@ -31,6 +32,8 @@ const PemotonganContainer: FunctionComponent<
         walletSigner
     );
 
+    console.log(etherscanBlockExplorers.polygonMumbai);
+
     const sendTransaction: SubmitHandler<IDataPemotongan> = async (data) => {
         setIsLoading(true);
         try {
@@ -38,8 +41,9 @@ const PemotonganContainer: FunctionComponent<
                 username,
                 data._jenisKelamin,
                 data._tanggalPemotongan,
-                data._tanggalPemotongan,
+                data._tanggalPemotongan
             );
+            setTxHash(tx.hash);
             console.log(tx);
             await tx.wait();
             setIsLoading(false);
@@ -47,7 +51,9 @@ const PemotonganContainer: FunctionComponent<
         } catch (err) {
             setIsLoading(false);
             console.log(err);
-            toast.error("Transaction failed, please check the console in your browser!");
+            toast.error(
+                'Transaction failed, please check the console in your browser!'
+            );
         }
     };
     return (
@@ -121,6 +127,17 @@ const PemotonganContainer: FunctionComponent<
                         <p>Submit</p>
                     )}
                 </button>
+                {txHash && (
+                    <span>
+                        You can check the transaction{' '}
+                        <a
+                            href={`${etherscanBlockExplorers.polygonMumbai.url}/tx/${txHash}`}
+                            className="underline text-blue-500"
+                        >
+                            here
+                        </a>
+                    </span>
+                )}
             </form>
             <ToastContainer
                 position="bottom-right"

@@ -1,7 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { useState } from 'react';
-import { useProvider } from 'wagmi';
-import { useUserContext } from '../UserContext';
+import { useProvider, etherscanBlockExplorers } from 'wagmi';
 import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,6 +17,7 @@ interface IDataProduk {
 
 const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [txHash, setTxHash] = useState('');
     const { register, handleSubmit } = useForm<IDataProduk>();
 
     const provider = useProvider();
@@ -36,6 +36,7 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
                 data._nama,
                 data._statusKehalalan
             );
+            setTxHash(tx.hash);
             console.log(tx);
             await tx.wait();
             setIsLoading(false);
@@ -114,6 +115,17 @@ const ProdukContainer: FunctionComponent<ProdukContainerProps> = ({}) => {
                         <p>Submit</p>
                     )}
                 </button>
+                {txHash && (
+                    <span>
+                        You can check the transaction{' '}
+                        <a
+                            href={`${etherscanBlockExplorers.polygonMumbai.url}/tx/${txHash}`}
+                            className="underline text-blue-500"
+                        >
+                            here
+                        </a>
+                    </span>
+                )}
             </form>
             <ToastContainer
                 position="bottom-right"
