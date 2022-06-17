@@ -2,21 +2,20 @@ import useSWR from 'swr';
 import { ethers, Event } from 'ethers';
 import { jsonABI, contractAddress } from '../ABI/contractABI';
 
-export type TracePemotonganRequest = {
+export type TraceProdukRPHRequest = {
     provider: ethers.providers.BaseProvider;
 };
 
-export type TracePemotonganResult = {
+export type TraceProdukRPHResult = {
+    ID_ProdukRPH: string;
     ID_Pemotongan: string;
-    ID_RPH: string;
-    jenis_kelamin: string;
-    tanggal_pemotongan: string;
+    nama: string;
     status_kehalalan: string;
     date: string;
 };
 
-const TracePemotonganFetcher = (
-    args: TracePemotonganRequest
+const TraceProdukRPHFetcher = (
+    args: TraceProdukRPHRequest
 ): Promise<Array<Event>> => {
     const traceabilityContract = new ethers.Contract(
         contractAddress,
@@ -24,21 +23,21 @@ const TracePemotonganFetcher = (
         args.provider
     );
 
-    const filter = traceabilityContract.filters.TracePemotongan();
+    const filter = traceabilityContract.filters.TraceProdukRPH();
     const data = traceabilityContract.queryFilter(filter);
 
     return data;
 };
 
-export function useTracePemotongan(req: TracePemotonganRequest) {
+export function useTraceProdukRPH(req: TraceProdukRPHRequest) {
     const { data, error } = useSWR<Array<Event>, Error>(
         {
             provider: req.provider,
         },
-        TracePemotonganFetcher
+        TraceProdukRPHFetcher
     );
 
-    const result: Array<TracePemotonganResult> =
+    const result: Array<TraceProdukRPHResult> =
         data! &&
         data?.map((item) => {
             const date = new Date(item.args?.date.toNumber() * 1000);
@@ -49,11 +48,10 @@ export function useTracePemotongan(req: TracePemotonganRequest) {
                 year: 'numeric',
                 minute: 'numeric',
             }).format(date);
-            const event: TracePemotonganResult = {
+            const event: TraceProdukRPHResult = {
+                ID_ProdukRPH: item.args?.ID_ProdukRPH,
                 ID_Pemotongan: item.args?.ID_Pemotongan,
-                ID_RPH: item.args?.ID_RPH,
-                jenis_kelamin: item.args?.jenis_kelamin,
-                tanggal_pemotongan: item.args?.tanggal_pemotongan,
+                nama: item.args?.nama,
                 status_kehalalan: item.args?.status_kehalalan,
                 date: formattedDate,
             };

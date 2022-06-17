@@ -1,5 +1,6 @@
 import { FunctionComponent, useState } from 'react';
 import TabelDataPemotongan from './components/TabelDataPemotongan';
+import TabelDataProdukRPH from './components/TabelDataProdukRPH';
 
 type HomePageContainerProps = {};
 
@@ -61,6 +62,7 @@ const HomePageContainer: FunctionComponent<HomePageContainerProps> = ({}) => {
             </div>
             <div>
                 {table === TipeTabel.pemotongan && <TabelDataPemotongan />}
+                {table === TipeTabel.produkRPH && <TabelDataProdukRPH />}
             </div>
         </div>
     );
