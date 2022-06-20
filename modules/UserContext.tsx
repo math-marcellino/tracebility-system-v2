@@ -7,7 +7,7 @@ type UserContextType = {
     namaLengkap: string | undefined;
     username: string | undefined;
     role: string | undefined;
-    noSertifHalal: string | undefined;
+    sertifikatHalal: string | undefined;
     deleteUserData: () => void;
 };
 
@@ -15,7 +15,7 @@ const UserContext = createContext<UserContextType>({
     namaLengkap: undefined,
     username: undefined,
     role: undefined,
-    noSertifHalal: undefined,
+    sertifikatHalal: undefined,
     deleteUserData: () => {},
 });
 
@@ -30,7 +30,7 @@ export const UserContextWrapper: FunctionComponent<UserContextWrapperType> = ({
         namaLengkap: undefined,
         username: undefined,
         role: undefined,
-        noSertifHalal: undefined,
+        sertifikatHalal: undefined,
         deleteUserData: () => {},
     });
     const jwtToken = useReadLocalStorage<string>('token');
@@ -41,7 +41,7 @@ export const UserContextWrapper: FunctionComponent<UserContextWrapperType> = ({
             namaLengkap: undefined,
             username: undefined,
             role: undefined,
-            noSertifHalal: undefined,
+            sertifikatHalal: undefined,
         });
     };
 
@@ -50,13 +50,13 @@ export const UserContextWrapper: FunctionComponent<UserContextWrapperType> = ({
             const decodedToken: {
                 username: string;
                 role: string;
-                noSertifHalal: string;
+                sertifikatHalal: string;
                 namaLengkap: string;
             } = decodeToken(jwtToken.toString())!;
             const data: UserContextType = {
                 username: decodedToken.username,
                 role: decodedToken.role,
-                noSertifHalal: decodedToken.noSertifHalal,
+                sertifikatHalal: decodedToken.sertifikatHalal,
                 namaLengkap: decodedToken.namaLengkap,
                 deleteUserData: deleteUserData,
             };
