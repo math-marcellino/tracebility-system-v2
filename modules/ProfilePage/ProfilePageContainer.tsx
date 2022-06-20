@@ -15,7 +15,7 @@ interface IEditData {
 
 const ProfilePageContainer: FunctionComponent<ProfilePageContainerProps> = ({}) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [punyaSertif, setPunyaSertif] = useState(false);
+    const [punyaSertif, setPunyaSertif] = useState(true);
     const [edit, setEdit] = useState(false);
     const { username, namaLengkap, role, sertifikatHalal } = useUserContext();
     const { register, handleSubmit } = useForm<IEditData>();
@@ -95,6 +95,7 @@ const ProfilePageContainer: FunctionComponent<ProfilePageContainerProps> = ({}) 
                                         onChange={() => setPunyaSertif(true)}
                                         type="radio"
                                         name="sertif_halal"
+                                        defaultChecked
                                     />
                                     <label>Punya Sertifikat Halal</label>
                                 </div>
@@ -107,31 +108,38 @@ const ProfilePageContainer: FunctionComponent<ProfilePageContainerProps> = ({}) 
                                     <label>Tidak Punya Sertifikat Halal</label>
                                 </div>
                             </div>
-                            <div
-                                className={`${
-                                    punyaSertif ? 'flex' : 'hidden'
-                                } flex-col space-y-1 w-full`}
-                            >
-                                <label>Sertifikat Halal</label>
-                                <input
-                                    type="text"
-                                    className="text-gray-900 rounded-md px-2 py-1.5"
-                                    defaultValue={sertifikatHalal}
-                                />
-                            </div>
-                            <div
-                                className={`${
-                                    !punyaSertif ? 'flex' : 'hidden'
-                                } flex-col space-y-1 w-full text-center`}
-                            >
-                                <h1 className="text-lg font-semibold">Syarat RPH</h1>
-                                <ul>
-                                    <li>1. Alat penyembelihan harus tajam</li>
-                                    <li>2. Menyebutkan nama Allah/Bismillah</li>
-                                    <li>3. Memotong pada bagian tenggorokan</li>
-                                    <li>4. Penyembelih adalah seorang Muslim</li>
-                                </ul>
-                            </div>
+                            {punyaSertif && (
+                                <div className="flex flex-col space-y-1 w-full">
+                                    <label>Sertifikat Halal</label>
+                                    <input
+                                        type="text"
+                                        className="text-gray-900 rounded-md px-2 py-1.5"
+                                        defaultValue={sertifikatHalal}
+                                        {...register('sertifikatHalal', { required: true })}
+                                    />
+                                </div>
+                            )}
+                            {!punyaSertif && (
+                                <div className="flex flex-col space-y-1 w-full text-center">
+                                    <h1 className="text-lg font-semibold">Syarat RPH</h1>
+                                    <ul>
+                                        <li>1. Alat penyembelihan harus tajam</li>
+                                        <li>2. Menyebutkan nama Allah/Bismillah</li>
+                                        <li>3. Memotong pada bagian tenggorokan</li>
+                                        <li>4. Penyembelih adalah seorang Muslim</li>
+                                    </ul>
+                                    <div className="space-x-2">
+                                        <input
+                                            type="radio"
+                                            {...register('sertifikatHalal', { required: true })}
+                                            value="Tidak ada, tetapi telah memenuhi persyaratan RPH"
+                                        />
+                                        <label>
+                                            {namaLengkap} telah memenuhi syarat RPH di atas
+                                        </label>
+                                    </div>
+                                </div>
+                            )}
                         </>
                     )}
                     {role !== 'RPH' && (
