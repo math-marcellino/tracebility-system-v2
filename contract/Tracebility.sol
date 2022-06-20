@@ -48,7 +48,6 @@ contract TraceabilityV2{
   }
 
   // Mappings 
-  // mapping(string => User) public Users;
   mapping(string => Pemotongan) public PemotonganBatch;
   mapping(string => ProdukRPH) public ProdukRPHBatch;
   mapping(string => ProdukDistributor) public ProdukDistributorBatch;
@@ -128,6 +127,7 @@ contract TraceabilityV2{
     string memory _nama,
     string memory _statusKehalalan
   ) public onlyOwner {
+    require(keccak256(abi.encodePacked((PemotonganBatch[_ID_Pemotongan].status_kehalalan))) != keccak256(abi.encodePacked((""))), "Data Pemotongan Tidak Terdaftar");
     index_produkRPH++;
     string memory ID = string.concat("PRPH", Strings.toString(index_produkRPH));
     ProdukRPHBatch[ID].ID_Pemotongan = _ID_Pemotongan;
@@ -151,6 +151,7 @@ contract TraceabilityV2{
     string memory _caraPenyimpanan,
     string memory _statusKehalalan
   ) public onlyOwner {
+    require(keccak256(abi.encodePacked((ProdukRPHBatch[_ID_ProdukRPH].status_kehalalan))) != keccak256(abi.encodePacked((""))), "Data Produk RPH Tidak Terdaftar");
     index_produkDistributor++;
     string memory ID = string.concat("PDIS", Strings.toString(index_produkDistributor));
     ProdukDistributorBatch[ID].ID_Distributor = _ID_Distributor;
@@ -180,6 +181,7 @@ contract TraceabilityV2{
     string memory _caraPengolahan,
     string memory _statusKehalalan
   ) public onlyOwner {
+    require(keccak256(abi.encodePacked((ProdukDistributorBatch[_ID_ProdukDistributor].status_kehalalan))) != keccak256(abi.encodePacked((""))), "Data Produk Distributor Tidak Terdaftar");
     index_makanan++;
     string memory ID = string.concat("PMKN", Strings.toString(index_makanan));
     MakananBatch[ID].ID_Hotel = _ID_Hotel;

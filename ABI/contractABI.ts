@@ -1,4 +1,4 @@
-export const jsonABI = [
+export const jsonABI =[
 	{
 		"inputs": [
 			{
@@ -473,5 +473,5 @@ export const jsonABI = [
 		"type": "function"
 	}
 ]
-export const contractAddress = '0x9Fa5D3E1Ba3d29989f0076a9eAEa90fE48DE12D2';
+export const contractAddress = '0x9aec2731218d9FEb56F99b27b13E33887D673b37';
 export const privateKey = "a61642fd40b7b9450ca16ca141a3dfc695fcaa3e32550297addb5e1741f7f08a"

@@ -56,6 +56,7 @@ exports.signIn = async (req, res) => {
       username: username,
       namaLengkap: account[0].nama_lengkap,
       role: role[0].role,
+      sertifikatHalal: account[0].sertifikatHalal
     }, process.env.JWT_KEY, {
       expiresIn: 21600
     })
@@ -78,7 +79,6 @@ exports.getUsers = async (req, res)=>{
       .join('role', 'role.id', 'users.role')
       .select('users.username')
       .select('users.nama_lengkap')
-      .select('users.password')
       .select('users.sertifikatHalal')
       .select('role.role')
     return res.status(200).send(users)
@@ -96,7 +96,6 @@ exports.getSpecificUser = async (req, res) => {
     .join('role', 'role.id', 'users.role')
     .select('users.username')
     .select('users.nama_lengkap')
-    .select('users.password')
     .select('users.sertifikatHalal')
     .select('role.role')
     .where({username})
@@ -108,4 +107,22 @@ exports.getSpecificUser = async (req, res) => {
   }
 }
 
+exports.updateUsers = async (req, res) => {
+  try{
+    const {
+      nama_lengkap,
+      sertifikatHalal
+    } = req.body;
 
+    await userDB.query().update({
+      nama_lengkap,
+      sertifikatHalal
+    })
+
+    return res.status(200).send({
+      message: "Update Profil Berhasil"
+    })
+  } catch(err) {
+    return res.status(500).send({message: err})
+  }
+}
