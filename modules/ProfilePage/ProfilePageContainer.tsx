@@ -17,7 +17,7 @@ const ProfilePageContainer: FunctionComponent<ProfilePageContainerProps> = ({}) 
     const [isLoading, setIsLoading] = useState(false);
     const [punyaSertif, setPunyaSertif] = useState(true);
     const [edit, setEdit] = useState(false);
-    const { username, namaLengkap, role, sertifikatHalal } = useUserContext();
+    const { username, namaLengkap, role, sertifikatHalal, setProfileEdited } = useUserContext();
     const { register, handleSubmit } = useForm<IEditData>();
 
     const editProfile = (data: IEditData) => {
@@ -32,6 +32,8 @@ const ProfilePageContainer: FunctionComponent<ProfilePageContainerProps> = ({}) 
                 toast.success('Edit profile success!');
                 setEdit(false);
                 setIsLoading(false);
+                setPunyaSertif(true);
+                setProfileEdited(true);
             })
             .catch((err) => {
                 console.log(err);
