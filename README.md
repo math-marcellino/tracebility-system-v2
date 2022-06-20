@@ -19,21 +19,29 @@ Pada aplikasi ini, para aktor dapat saling berkoordinasi dengan cara memasukkan 
 ### 1. Aktor
 - Aktor mengunjungi website pada link yang tertera pada bagian `Link Website`
 - Pada halaman utama, terdapat sebuah tabel yang berisi data-data pemotongan, penyimpanan, dan pengolahan. Seluruh data tersebut dapat dilihat secara publik dan tidak memerlukan _login_ terlebih dahulu.
-![image](https://user-images.githubusercontent.com/81855912/172972830-1fedf540-380e-4d8d-9432-a08917d8a40d.png)
+![image](https://user-images.githubusercontent.com/79161142/174567195-d5052cb5-bcaf-4d1c-a1c9-87cc1d1363b4.png)
+- Pada setiap tabel, terdapat data berupa ID aktor yang ditampilkan dengan bentuk tombol yang jika ditekan, akan menampilkan informasi detail dari ID aktor tersebut.
+![image](https://user-images.githubusercontent.com/79161142/174566917-e3e7492f-b33e-4868-a826-ce38b3d9bf8c.png)
+![image](https://user-images.githubusercontent.com/79161142/174566985-37a55895-17a9-4b66-9639-bb5a61e734a8.png)
 - Aktor dapat melakukan login menggunakan akun yang telah dibuatkan oleh admin (list akun dapat dilihat pada bagian `Resource`).
 ![image](https://user-images.githubusercontent.com/81855912/172973471-bdfa9369-c37e-492e-b2ac-770bdf54b2a3.png)
 - Setelah melakukan login, aktor akan mendapatkan akses untuk menambahkan data sesuai dengan peran mereka.
 
 | Role  | Akses |
 | ------------- | ------------- |
-| RPH | Tambah Data Pemotongan |
-| Distributor | Tambah Data Penyimpanan |
-| Hotel | Tammbah Data Pengolahan |
+| RPH | Tambah Data Pemotongan, Tambah Data Produk RPH |
+| Distributor | Tambah Data ProdukDistributor |
+| Hotel | Tammbah Data Makanan |
 
 - Untuk menggunakan akses tersebut, aktor dapat menekan tombol baru yang muncul pada navigation bar
-![image](https://user-images.githubusercontent.com/81855912/172974055-d5580453-f258-4d6d-a8de-07fd8932b917.png)
-![image](https://user-images.githubusercontent.com/81855912/172974145-a48c5cc4-c7cc-44d4-a353-1d2051c14b3e.png)
-![image](https://user-images.githubusercontent.com/81855912/172974216-194f3d53-1a67-43ca-b732-4253506e94db.png)
+![image](https://user-images.githubusercontent.com/79161142/174563662-f360b8be-9788-4749-bb3c-9e5f57b99b50.png)
+![image](https://user-images.githubusercontent.com/79161142/174564633-42890ab8-9cb6-4719-8206-a9d381a2057c.png)
+![image](https://user-images.githubusercontent.com/79161142/174564931-001c9685-5eb6-4dcb-82c5-8f7a93e4d1de.png)
+![image](https://user-images.githubusercontent.com/79161142/174567459-0f209da3-f8aa-452b-9851-343e4bf615b4.png)
+![image](https://user-images.githubusercontent.com/79161142/174568486-9d3078d6-cd3e-427d-8f99-1ae85e200469.png)
+![image](https://user-images.githubusercontent.com/79161142/174571628-06a2db1c-ef4a-42f2-961c-d0c8098a79e1.png)
+![image](https://user-images.githubusercontent.com/79161142/174571552-a76f678d-e78d-4edd-ba0d-59ba247cd7ea.png)
+
 
 - Data yang dimasukkan oleh para aktor akan disimpan ke dalam blockchain melalui smart contract
 
@@ -45,7 +53,9 @@ Pada aplikasi ini, para aktor dapat saling berkoordinasi dengan cara memasukkan 
 <img src="https://user-images.githubusercontent.com/81855912/172974690-dd50ae9b-bdcd-479f-b906-c24cc9f8eea6.png" width="500">
 
 - Hasil scan QR Code
-![image](https://user-images.githubusercontent.com/81855912/172975166-97a12367-1fb8-4667-b02f-10771810723e.png)
+
+![image](https://user-images.githubusercontent.com/79161142/174572684-c5a24d45-85b1-48a7-9222-c85eb130bc34.png)
+![image](https://user-images.githubusercontent.com/79161142/174572828-d873d73d-5361-4894-83fd-94681690c7ca.png)
 
 - Data yang dilihat oleh konsumen didapatkan dari blockchain melalui smart contract
 
@@ -53,6 +63,6 @@ Pada aplikasi ini, para aktor dapat saling berkoordinasi dengan cara memasukkan 
 ### List Akun Stakeholder
 | Username  | Password | Role |
 | ------------- | ------------- | ------------- |
-| willy07  | 12345 | RPH |
-| math08  | 12345 | Distributor |
-| hotel09  | 12345 | Hotel |
+| rph01  | 12345 | RPH |
+| distributor1  | 12345 | Distributor |
+| hotel01  | 12345 | Hotel |
