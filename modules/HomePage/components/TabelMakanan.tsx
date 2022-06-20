@@ -51,7 +51,6 @@ const TabelMakanan: FunctionComponent<TabelMakananProps> = ({}) => {
                             `https://tracebility-project.herokuapp.com/api/user/getSpecific/${ID_Hotel}`
                         )
                         setUser(result.data[0])
-                        console.log(result.data[0])
                     }
                     return(
                         <div>

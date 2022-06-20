@@ -29,7 +29,6 @@ const LoginPageContainer: FunctionComponent<LoginPageContainerProps> = ({}) => {
 
     const handleLogin: SubmitHandler<IUserInfo> = async (data) => {
         setIsLoading(true);
-        console.log(data);
         try {
             const result = await axios.post(
                 'https://tracebility-project.herokuapp.com/api/user/acc/signIn',

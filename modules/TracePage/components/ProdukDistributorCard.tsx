@@ -48,7 +48,6 @@ const ProdukDistributorCard: FunctionComponent<ProdukDistributorCardProps> = ({
             `https://tracebility-project.herokuapp.com/api/user/getSpecific/${ID_Hotel}`
         );
         setDistributorInfo(result.data[0]);
-        console.log(result.data[0]);
     };
     return (
         <>

@@ -51,7 +51,6 @@ const TabelDataPemotongan: FunctionComponent<
                             `https://tracebility-project.herokuapp.com/api/user/getSpecific/${ID_RPH}`
                         )
                         setUser(result.data[0])
-                        console.log(result.data[0])
                     }
                     return(
                         <div>

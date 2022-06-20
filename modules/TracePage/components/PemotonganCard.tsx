@@ -40,7 +40,6 @@ const PemotonganCard: FunctionComponent<PemotonganCardProps> = ({ id }) => {
             `https://tracebility-project.herokuapp.com/api/user/getSpecific/${ID_RPH}`
         );
         setRPHInfo(result.data[0]);
-        console.log(result.data[0]);
     };
 
     return (

@@ -55,7 +55,6 @@ const TabelDataProdukDistributor: FunctionComponent<
                             `https://tracebility-project.herokuapp.com/api/user/getSpecific/${ID_Distributor}`
                         )
                         setUser(result.data[0])
-                        console.log(result.data[0])
                     }
                     return(
                         <div>

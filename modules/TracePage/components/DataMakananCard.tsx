@@ -44,7 +44,6 @@ const DataMakananCard: FunctionComponent<DataMakananCardProps> = ({ setIdProdukD
             `https://tracebility-project.herokuapp.com/api/user/getSpecific/${ID_Hotel}`
         );
         setHotelInfo(result.data[0]);
-        console.log(result.data[0]);
     };
     return (
         <>
