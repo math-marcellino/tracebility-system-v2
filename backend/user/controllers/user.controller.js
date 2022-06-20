@@ -108,4 +108,22 @@ exports.getSpecificUser = async (req, res) => {
   }
 }
 
+exports.updateUsers = async (req, res) => {
+  try{
+    const {
+      nama_lengkap,
+      sertifikatHalal
+    } = req.body;
 
+    await userDB.query().update({
+      nama_lengkap,
+      sertifikatHalal
+    })
+
+    return res.status(200).send({
+      message: "Update Profil Berhasil"
+    })
+  } catch(err) {
+    return res.status(500).send({message: err})
+  }
+}

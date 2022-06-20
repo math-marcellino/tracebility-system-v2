@@ -28,4 +28,9 @@ module.exports = function(app){
     '/api/user/getSpecific/:username',
     user.getSpecificUser
   )
+
+  app.put(
+    '/api/user/updateUsers/:username',
+    user.updateUsers
+  )
 }
