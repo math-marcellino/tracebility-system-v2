@@ -45,6 +45,16 @@ Pada aplikasi ini, para aktor dapat saling berkoordinasi dengan cara memasukkan 
 
 - Data yang dimasukkan oleh para aktor akan disimpan ke dalam blockchain melalui smart contract
 
+- Aktor juga dapat mengedit data profil mereka dengan menuju ke halaman edit profil yang dapat diakses melalui tombol di bagian ujung kanan sebagai berikut.
+![image](https://user-images.githubusercontent.com/79161142/174716499-d70fcbdd-e6fc-42e6-b46e-9876da02868d.png)
+![image](https://user-images.githubusercontent.com/79161142/174716564-1a04c791-c543-442c-91b3-b03c5b730755.png)
+![image](https://user-images.githubusercontent.com/79161142/174716684-c752ec54-5d5c-44d7-8d20-fef58eedc142.png)
+
+- Untuk aktor RPH yang melakukan pengeditan profil terhadap sertifikat halal mereka, dapat diisi dengan memiliki sertifikat halal, atau tidak memiliki sertifikat halal 
+- jika RPH tidak memiliki sertifikat halal, maka ia harus menyetujui bahwa RPH telah memenuhi persyaratan yang telah ditampilkan.
+![image](https://user-images.githubusercontent.com/79161142/174717017-882443b3-c083-4d8e-babe-9d21dfaf3ea4.png)
+![image](https://user-images.githubusercontent.com/79161142/174717159-9647d60a-5cc9-4687-96c0-efeec95a38e7.png)
+
 ### 2. Konsummen
 - Konsumen pada kasus ini diasumsikan sebagai pelanggan pada restoran di dalam hotel. 
 - Setiap harinya, restoran pada hotel akan membuat sebuah QR Code untuk setiap makanan yang disajikan pada hari tersebut. 
