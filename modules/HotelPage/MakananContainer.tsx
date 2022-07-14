@@ -2,7 +2,7 @@ import type { FunctionComponent } from 'react';
 import { useState } from 'react';
 import { useProvider, etherscanBlockExplorers } from 'wagmi';
 import { useUserContext } from '../UserContext';
-import { jsonABI, contractAddress, privateKey } from '../../ABI/contractABI';
+import { jsonABI, contractAddress } from '../../ABI/contractABI';
 import { ethers } from 'ethers';
 import { ToastContainer, toast } from 'react-toastify';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -23,14 +23,15 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
     const [txHash, setTxHash] = useState('');
     const { username } = useUserContext();
     const { register, handleSubmit } = useForm<IDataMakanan>();
+    let privateKey = '';
+
+    if (process.env.NEXT_PUBLIC_PRIVATE_KEY) {
+        privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY;
+    }
 
     const provider = useProvider();
     const walletSigner = new ethers.Wallet(privateKey, provider);
-    const ContractInstance = new ethers.Contract(
-        contractAddress,
-        jsonABI,
-        walletSigner
-    );
+    const ContractInstance = new ethers.Contract(contractAddress, jsonABI, walletSigner);
 
     const sendTransaction: SubmitHandler<IDataMakanan> = async (data) => {
         setIsLoading(true);
@@ -51,9 +52,7 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
         } catch (err) {
             setIsLoading(false);
             console.log(err);
-            toast.error(
-                'Transaction failed, please check the console in your browser!'
-            );
+            toast.error('Transaction failed, please check the console in your browser!');
         }
     };
     return (
