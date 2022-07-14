@@ -473,4 +473,4 @@ export const jsonABI = [
         type: 'function',
     },
 ];
-export const contractAddress = '0x9aec2731218d9FEb56F99b27b13E33887D673b37';
+export const contractAddress = '0x9642Ae32E7453eEcc79822E66de3CFbdbEbFBa5C';

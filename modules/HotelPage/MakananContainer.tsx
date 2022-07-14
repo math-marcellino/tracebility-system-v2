@@ -144,7 +144,7 @@ const MakananContainer: FunctionComponent<MakananContainerProps> = ({}) => {
                     <span>
                         You can check the transaction{' '}
                         <a
-                            href={`${etherscanBlockExplorers.polygonMumbai.url}/tx/${txHash}`}
+                            href={`${etherscanBlockExplorers.rinkeby.url}/tx/${txHash}`}
                             className="underline text-blue-500"
                             target="_blank"
                             rel="noopener noreferrer"
