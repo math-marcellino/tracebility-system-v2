@@ -10,11 +10,7 @@ import {
 import { jsonABI, contractAddress } from '../ABI/contractABI';
 
 const TraceFetcher = (args: TraceRequest): Promise<Array<Event>> => {
-    const traceabilityContract = new ethers.Contract(
-        contractAddress,
-        jsonABI,
-        args.provider
-    );
+    const traceabilityContract = new ethers.Contract(contractAddress, jsonABI, args.provider);
 
     let filter = traceabilityContract.filters.TracePemotongan();
     switch (args.type) {
@@ -31,7 +27,7 @@ const TraceFetcher = (args: TraceRequest): Promise<Array<Event>> => {
             filter = traceabilityContract.filters.TraceMakanan();
             break;
     }
-    const data = traceabilityContract.queryFilter(filter);
+    const data = traceabilityContract.queryFilter(filter, 11023000);
 
     return data;
 };
