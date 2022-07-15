@@ -70,6 +70,12 @@ const PemotonganCard: FunctionComponent<PemotonganCardProps> = ({ id }) => {
                                 <td className="border py-1 px-2">{data?.jenis_kelamin}</td>
                             </tr>
                             <tr>
+                                <td className="border py-1 px-2 font-semibold">
+                                    Tanggal Pemotongan
+                                </td>
+                                <td className="border py-1 px-2">{data?.tanggal_pemotongan}</td>
+                            </tr>
+                            <tr>
                                 <td className="border py-1 px-2 font-semibold">Status Kehalalan</td>
                                 <td className="border py-1 px-2">{data?.status_kehalalan}</td>
                             </tr>
@@ -103,12 +109,8 @@ const PemotonganCard: FunctionComponent<PemotonganCardProps> = ({ id }) => {
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <div className="mt-2 space-y-6">
-                                        <p className="text-black">
-                                            Username: {RPHInfo?.username}
-                                        </p>
-                                        <p className="text-black">
-                                            Nama: {RPHInfo?.nama_lengkap}
-                                        </p>
+                                        <p className="text-black">Username: {RPHInfo?.username}</p>
+                                        <p className="text-black">Nama: {RPHInfo?.nama_lengkap}</p>
                                         <p className="text-black">
                                             Sertifikat Halal: {RPHInfo?.sertifikatHalal}
                                         </p>
