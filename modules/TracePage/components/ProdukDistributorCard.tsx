@@ -92,7 +92,7 @@ const ProdukDistributorCard: FunctionComponent<ProdukDistributorCardProps> = ({
                             </tr>
                             <tr className="bg-gray-200 text-gray-900">
                                 <td className="border py-1 px-2 font-semibold">
-                                    ID Produk Distributor
+                                    ID Produk RPH
                                 </td>
                                 <td className="border py-1 px-2">{data?.ID_ProdukRPH}</td>
                             </tr>
